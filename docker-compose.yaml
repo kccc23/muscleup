@@ -1,25 +1,45 @@
 # volumes:
 services:
-  fastapi:
-    build:
-      context: sample_service
-      dockerfile: Dockerfile.dev
-    ports:
-      - 8000:8000
-    volumes:
-      - ./sample_service:/app
+    fastapi:
+        build:
+            context: sample_service
+            dockerfile: Dockerfile.dev
+        ports:
+            - 8000:8000
+        volumes:
+            - ./sample_service:/app
+        depends_on:
+            - db
+        environment:
+            - MONGO_HOST=db
+            - MONGO_PORT=27017
+            - MONGO_DB=test_database
 
-  ghi:
-    image: node:lts-bullseye
-    command: /bin/bash run.sh
-    working_dir: /app
-    volumes:
-      - ./ghi:/app
-    ports:
-      - "3000:3000"
-    environment:
-      HOST_OS: ${OS}
-      NODE_ENV: development
-      HOST: "0.0.0.0"
-      PUBLIC_URL: http://localhost:3000
-      REACT_APP_SAMPLE_SERVICE_API_HOST: ${REACT_APP_SAMPLE_SERVICE_API_HOST}
+
+    ghi:
+        image: node:lts-bullseye
+        command: /bin/bash run.sh
+        working_dir: /app
+        volumes:
+            - ./ghi:/app
+        ports:
+            - "3000:3000"
+        environment:
+            HOST_OS: ${OS}
+            NODE_ENV: development
+            HOST: "0.0.0.0"
+            PUBLIC_URL: http://localhost:3000
+            # REACT_APP_SAMPLE_SERVICE_API_HOST: ${REACT_APP_SAMPLE_SERVICE_API_HOST}
+
+    db:
+        image: mongo
+        volumes:
+            - mongodb_data:/data/db
+        ports:
+            - 27017:27017
+        # environment:
+        #     MONGO_INITDB_ROOT_USERNAME: root
+        #     MONGO_INITDB_ROOT_PASSWORD: password
+
+volumes:
+    mongodb_data:
