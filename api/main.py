@@ -6,15 +6,13 @@ import os
 app = FastAPI()
 
 # MongoDB connection settings
-MONGO_HOST = "db" # Matches the service name on the docker-compose.yml
-MONGO_PORT = 27017 # default MongoDB port
-MONGO_DB = "test_database" # the name of database on docker_compose.yml and MongoDB
+mongo_link = os.environ["MONGO_URL"]
 
 # Create a MongoDB client
-client = MongoClient(MONGO_HOST, MONGO_PORT)
+client = MongoClient(mongo_link)
 
 #Access the database
-db = client[MONGO_DB]
+db = client["test_database"]
 
 app.add_middleware(
     CORSMiddleware,

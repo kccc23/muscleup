@@ -2,19 +2,17 @@
 services:
     fastapi:
         build:
-            context: sample_service
+            context: api
             dockerfile: Dockerfile.dev
         ports:
             - 8000:8000
         volumes:
-            - ./sample_service:/app
-        depends_on:
-            - db
+            - ./api:/app
         environment:
-            - MONGO_HOST=db
-            - MONGO_PORT=27017
-            - MONGO_DB=test_database
-
+            MONGO_URL: mongodb://root:password@mongo
+            WAIT_HOSTS: mongo:27017
+            WAIT_BEFORE: 5
+            WAIT_TIMEOUT: 60
 
     ghi:
         image: node:lts-bullseye
@@ -31,15 +29,17 @@ services:
             PUBLIC_URL: http://localhost:3000
             # REACT_APP_SAMPLE_SERVICE_API_HOST: ${REACT_APP_SAMPLE_SERVICE_API_HOST}
 
-    db:
+    mongo:
         image: mongo
         volumes:
+            - ./setup/mongodb:/docker-entrypoint-initdb.d
             - mongodb_data:/data/db
         ports:
             - 27017:27017
-        # environment:
-        #     MONGO_INITDB_ROOT_USERNAME: root
-        #     MONGO_INITDB_ROOT_PASSWORD: password
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: root
+            MONGO_INITDB_ROOT_PASSWORD: password
 
 volumes:
     mongodb_data:
+      external: true
