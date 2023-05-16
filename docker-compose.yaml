@@ -10,6 +10,7 @@ services:
             - ./api:/app
         environment:
             MONGO_URL: mongodb://root:password@mongo
+            SIGNING_KEY: qm4og5yazi53mwa97imwj6c7usf4a8nmtgxhv2ws
             WAIT_HOSTS: mongo:27017
             WAIT_BEFORE: 5
             WAIT_TIMEOUT: 60
@@ -42,4 +43,4 @@ services:
 
 volumes:
     mongodb_data:
-      external: true
+        external: true
