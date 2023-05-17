@@ -10,6 +10,7 @@ class Account(BaseModel):
     avatar: str | None
     role: str
 
+
 class AccountIn(BaseModel):
     username: str
     password: str
@@ -26,3 +27,40 @@ class AccountOut(BaseModel):
     last_name: str
     avatar: str | None
     role: str
+
+
+
+# Models for Trainee Exclusively
+class TraineeProfile(BaseModel):
+    account_id : str
+    account_email: str
+    id: str
+    goal : str
+    height: int
+    weight: int
+    goal_weight: int
+    date_of_birth: str
+    gender: str
+    country: str
+    state: str
+
+class TraineeProfileIn(BaseModel):
+    goal : str
+    height: int
+    weight: int
+    goal_weight: int
+    date_of_birth: str
+    gender: str
+    country: str
+    state: str
+
+class TraineeProfileOut(BaseModel):
+    account_email: str
+    goal : str
+    height: int
+    weight: int
+    goal_weight: int
+    date_of_birth: str
+    gender: str
+    country: str
+    state: str
