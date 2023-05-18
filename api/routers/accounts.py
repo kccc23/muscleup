@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from auth import authenticator
 from queries.accounts import AccountQueries, DuplicateAccountError
 from models import AccountIn, AccountOut
+from typing import Optional
 
 class AccountForm(BaseModel):
     username: str
@@ -44,3 +45,13 @@ async def create_account(
     )
     token = await authenticator.login(response, request, form, repo)
     return AccountToken(account=account, **token.dict())
+
+
+# Route to be determined once front-end is more defined
+@router.get("/api/accounts/{email}")
+async def get_current_account_info(
+    account_data: Optional[dict] = Depends(authenticator.try_get_current_account_data),
+):
+    if account_data:
+        return account_data
+    return {"message": "no account logged in"}

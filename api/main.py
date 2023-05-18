@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
-from routers import accounts
+from routers import accounts, trainees
 from auth import authenticator
 import os
 
@@ -17,3 +17,4 @@ app.add_middleware(
 
 app.include_router(accounts.router)
 app.include_router(authenticator.router)
+app.include_router(trainees.router)

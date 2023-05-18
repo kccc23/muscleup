@@ -1,4 +1,3 @@
-import os
 from .client import Queries
 from models import Account, AccountIn
 
