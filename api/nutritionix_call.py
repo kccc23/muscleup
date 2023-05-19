@@ -1,10 +1,7 @@
 import json
 import requests
 import os
-
-NUTRITIONIX_ID = "4b7309b9"
-NUTRITIONIX_KEY = "760203a8bf5c41931a013b14d1d661ad"
-
+from keys import NUTRITIONIX_ID, NUTRITIONIX_KEY
 
 def get_foods(log_meal):
     headers = {
