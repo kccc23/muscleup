@@ -28,6 +28,11 @@ class AccountOut(BaseModel):
     avatar: str | None
     role: str
 
+class AccountUpdateForm(BaseModel):
+    username: str | None
+    first_name: str | None
+    last_name: str | None
+    avatar: str | None
 
 # Models for Trainee Exclusively
 class TraineeProfile(BaseModel):
@@ -81,4 +86,27 @@ class LogMealIn(BaseModel):
 class LogMealOut(BaseModel):
     meal_name: str
     meal_items: list
+    datetime: str
+
+class LogExercise(BaseModel):
+    id: str
+    account_id: str
+    account_email: str
+    log_exercise: str
+    exercise_name: str
+    exercise_items: list
+    datetime: str
+
+
+class LogExerciseIn(BaseModel):
+    log_exercise: str
+    exercise_name: str
+    gender: str
+    weight_kg: int
+    height_cm: int
+    age: int
+
+class LogExerciseOut(BaseModel):
+    exercise_items: list
+    exercise_name: str
     datetime: str

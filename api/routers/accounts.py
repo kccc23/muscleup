@@ -10,7 +10,7 @@ from jwtdown_fastapi.authentication import Token
 from pydantic import BaseModel
 from auth import authenticator
 from queries.accounts import AccountQueries, DuplicateAccountError
-from models import AccountIn, AccountOut
+from models import AccountIn, AccountOut, Account, AccountUpdateForm
 from typing import Optional
 
 class AccountForm(BaseModel):
@@ -54,4 +54,29 @@ async def get_current_account_info(
 ):
     if account_data:
         return account_data
+    return {"message": "no account logged in"}
+
+
+@router.put("/api/accounts/{email}", response_model=Account | dict)
+async def update_account_info(
+    info: AccountUpdateForm,
+    account_data: Optional[dict] = Depends(authenticator.try_get_current_account_data),
+    repo: AccountQueries=Depends(),
+):
+    if account_data:
+        account_email = account_data["email"]
+        account_info = repo.update(info, account_email)
+        return account_info
+    return {"message": "no account logged in"}
+
+#handle logout in react
+@router.delete("/api/accounts/{email}", response_model=dict)
+async def delete_account_info(
+    account_data: Optional[dict] = Depends(authenticator.try_get_current_account_data),
+    repo: AccountQueries=Depends(),
+):
+    if account_data:
+        account_email = account_data["email"]
+        message = repo.delete(account_email)
+        return message
     return {"message": "no account logged in"}
