@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class Account(BaseModel):
     id: str
     username: str
@@ -9,7 +10,6 @@ class Account(BaseModel):
     last_name: str
     avatar: str | None
     role: str
-
 
 class AccountIn(BaseModel):
     username: str
@@ -28,7 +28,11 @@ class AccountOut(BaseModel):
     avatar: str | None
     role: str
 
-
+class AccountUpdateForm(BaseModel):
+    username: str | None
+    first_name: str | None
+    last_name: str | None
+    avatar: str | None
 
 # Models for Trainee Exclusively
 class TraineeProfile(BaseModel):
@@ -64,3 +68,55 @@ class TraineeProfileOut(BaseModel):
     gender: str
     country: str
     state: str
+
+class TraineeProfileUpdateForm(BaseModel):
+    goal : str | None
+    height: int | None
+    weight: int | None
+    goal_weight: int | None
+    date_of_birth: str | None
+    gender: str | None
+    country: str | None
+    state: str | None
+
+
+class LogMeal(BaseModel):
+    id: str
+    account_id : str
+    account_email: str
+    meal_name: str
+    meal_items: list
+    datetime: str
+    log_meal: str
+
+class LogMealIn(BaseModel):
+    log_meal: str
+    meal_name: str
+
+class LogMealOut(BaseModel):
+    meal_name: str
+    meal_items: list
+    datetime: str
+
+class LogExercise(BaseModel):
+    id: str
+    account_id: str
+    account_email: str
+    log_exercise: str
+    exercise_name: str
+    exercise_items: list
+    datetime: str
+
+
+class LogExerciseIn(BaseModel):
+    log_exercise: str
+    exercise_name: str
+    gender: str
+    weight_kg: int
+    height_cm: int
+    age: int
+
+class LogExerciseOut(BaseModel):
+    exercise_items: list
+    exercise_name: str
+    datetime: str
