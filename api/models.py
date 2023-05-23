@@ -69,6 +69,16 @@ class TraineeProfileOut(BaseModel):
     country: str
     state: str
 
+class TraineeProfileUpdateForm(BaseModel):
+    goal : str | None
+    height: int | None
+    weight: int | None
+    goal_weight: int | None
+    date_of_birth: str | None
+    gender: str | None
+    country: str | None
+    state: str | None
+
 
 class LogMeal(BaseModel):
     id: str

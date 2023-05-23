@@ -5,7 +5,6 @@ from bson.objectid import ObjectId
 
 
 class LogMealQueries(Queries):
-
     DB_NAME = "muscleup"
     COLLECTION = "log_meals"
 
@@ -30,17 +29,29 @@ class LogMealQueries(Queries):
 
         return LogMeal(**props)
 
-    def delete(self, meal_id):
-        status = self.collection.delete_one({"_id": ObjectId(meal_id)})
+    def delete(self, meal_id, account_email):
+        status = self.collection.delete_one(
+            {
+                "$and": [
+                    {"_id": ObjectId(meal_id)},
+                    {"account_email": account_email},
+                ]
+            }
+        )
         if status.deleted_count:
             return {"message": "meal deleted successfully"}
         else:
             return {"message": "meal deletion failed"}
 
+    def delete_all(self, account_email):
+        status = self.collection.delete_many({"account_email": account_email})
+        if status.deleted_count:
+            return {"message": f"{status.deleted_count} meal logs deleted"}
+        else:
+            return {"message": "meal deletion failed"}
 
 
 class LogExerciseQueries(Queries):
-
     DB_NAME = "muscleup"
     COLLECTION = "log_exercises"
 
@@ -52,7 +63,9 @@ class LogExerciseQueries(Queries):
             exercises.append(LogExercise(**prop))
         return exercises
 
-    def create(self, info: LogExerciseIn, exercise, account_data) -> LogExercise:
+    def create(
+        self, info: LogExerciseIn, exercise, account_data
+    ) -> LogExercise:
         props = info.dict()
         props["exercise_items"] = exercise
         props["account_id"] = account_data["id"]
@@ -64,3 +77,24 @@ class LogExerciseQueries(Queries):
         props["id"] = str(props["_id"])
 
         return LogExercise(**props)
+
+    def delete(self, exercise_id, account_email):
+        status = self.collection.delete_one(
+            {
+                "$and": [
+                    {"_id": ObjectId(exercise_id)},
+                    {"account_email": account_email},
+                ]
+            }
+        )
+        if status.deleted_count:
+            return {"message": "exercise deleted successfully"}
+        else:
+            return {"message": "exercise deletion failed"}
+
+    def delete_all(self, account_email):
+        status = self.collection.delete_many({"account_email": account_email})
+        if status.deleted_count:
+            return {"message": f"{status.deleted_count} exercise logs deleted"}
+        else:
+            return {"message": "exercise deletion failed"}

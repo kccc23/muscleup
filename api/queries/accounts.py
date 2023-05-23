@@ -7,7 +7,6 @@ class DuplicateAccountError(ValueError):
 
 
 class AccountQueries(Queries):
-
     DB_NAME = "muscleup"
     COLLECTION = "accounts"
 
@@ -18,7 +17,13 @@ class AccountQueries(Queries):
         props["id"] = str(props["_id"])
         return Account(**props)
 
-    def create(self, info: AccountIn, hashed_password: str, role="trainee", avatar=None) -> Account:
+    def create(
+        self,
+        info: AccountIn,
+        hashed_password: str,
+        role="trainee",
+        avatar=None,
+    ) -> Account:
         props = info.dict()
         props["password"] = hashed_password
         props["role"] = role
@@ -31,7 +36,7 @@ class AccountQueries(Queries):
         props["id"] = str(props["_id"])
         return Account(**props)
 
-    def update(self, info: AccountUpdateForm, account_email):
+    def update(self, info: AccountUpdateForm, account_email: str):
         props = self.collection.find_one({"email": account_email})
         props["id"] = str(props["_id"])
         for k, v in info.dict().items():
@@ -39,12 +44,17 @@ class AccountQueries(Queries):
                 pass
             else:
                 props[k] = v
-        self.collection.update_one({"email": account_email}, {"$set": {
-            "username": props["username"],
-            "first_name": props["first_name"],
-            "last_name": props["last_name"],
-            "avatar": props["avatar"],
-        }})
+        self.collection.update_one(
+            {"email": account_email},
+            {
+                "$set": {
+                    "username": props["username"],
+                    "first_name": props["first_name"],
+                    "last_name": props["last_name"],
+                    "avatar": props["avatar"],
+                }
+            },
+        )
         return Account(**props)
 
     def delete(self, account_email):
