@@ -21,7 +21,7 @@ class AccountIn(BaseModel):
 class AccountOut(BaseModel):
     id: str
     username: str
-    password: str
+    # password: str
     email: str
     first_name: str
     last_name: str
