@@ -30,7 +30,7 @@ function Navbar() {
           </ul>
         </div>
         <div className="navbar-button">
-          <NavLink className="navbar-link" to="">
+          <NavLink className="navbar-link" to="/signup">
             Muscle UP!
           </NavLink>
         </div>

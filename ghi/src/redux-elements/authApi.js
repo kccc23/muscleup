@@ -60,12 +60,22 @@ export const authApiSlice = createApi({
             providesTags: ["Token"],
         }),
         signUp: builder.mutation({
-            query: data => ({
-                url: '/api/accounts',
-                method: 'post',
-                body: data,
-                credentials: 'include',
-            }),
+            query: (info) => {
+                // let jsonBody = {
+                //     username: formData.get("username"),
+                //     email: formData.get("email"),
+                //     password: formData.get("password"),
+                //     first_name: formData.get("first_name"),
+                //     last_name: formData.get("last_name"),
+                // };
+                // console.log(JSON.stringify(jsonBody));
+                return ({
+                    url: "/api/accounts",
+                    method: "post",
+                    body: info,
+                    credentials: "include",
+                });
+            },
             providesTags: ['Account'],
             invalidatesTags: result => {
                 return (result && ['Token']) || [];
@@ -73,8 +83,10 @@ export const authApiSlice = createApi({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                 await queryFulfilled;
-                dispatch(clearForm());
-                } catch (err) {}
+                // dispatch(clearForm());
+                } catch (err) {
+                    console.error("give me this", err)
+                }
             },
         }),
     }),
@@ -82,7 +94,7 @@ export const authApiSlice = createApi({
 
 export const {
     useGetTokenQuery,
-    useLoginMutation,
+    useLogInMutation,
     useLogOutMutation,
     useSignUpMutation,
 } = authApiSlice;
