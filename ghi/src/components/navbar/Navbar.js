@@ -6,7 +6,7 @@ import React from "react";
 function Navbar() {
   return (
     <nav className="navbar">
-      
+
       <div className="navbar-container-image">
         <ImHome className="navbar-logo"></ImHome>
         <NavLink className="navbar-title" to="/">
@@ -23,7 +23,7 @@ function Navbar() {
               </NavLink>
             </li>
             <li className="navbar-item">
-              <NavLink className="navbar-link" to="">
+              <NavLink className="navbar-link" to="/login">
                 Login
               </NavLink>
             </li>

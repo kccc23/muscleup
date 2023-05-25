@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    show: null,
     username: "",
+    email: "",
     password: "",
-    full_name: "",
+    first_name: "",
+    last_name: "",
 };
 
 export const accountSlice = createSlice({
@@ -12,13 +13,13 @@ export const accountSlice = createSlice({
     initialState,
     reducers: {
         updateField: (state, action) => {
-        state[action.payload.field] = action.payload.value;
+            state[action.payload.field] = action.payload.value;
         },
         showModal: (state, action) => {
-        state.show = action.payload;
+            state.show = action.payload;
         },
         clearForm: () => {
-        return initialState;
+            return initialState;
         },
     },
 });
