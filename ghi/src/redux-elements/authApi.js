@@ -1,7 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { clearForm } from './accountSlice';
 
+
+
+
 export const authApiSlice = createApi({
+
     reducerPath: "auth",
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_API_HOST,
@@ -16,6 +20,7 @@ export const authApiSlice = createApi({
     }),
     tagTypes: ["Account", "Token"],
     endpoints: (builder) => ({
+        
         logIn: builder.mutation({
             query: (info) => {
                 let formData = null;
@@ -39,7 +44,7 @@ export const authApiSlice = createApi({
             },
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
-                    await queryFulfilled;
+                    const response = await queryFulfilled;
                     dispatch(clearForm());
                 } catch (err) {}
             },
@@ -69,7 +74,7 @@ export const authApiSlice = createApi({
                 //     last_name: formData.get("last_name"),
                 // };
                 // console.log(JSON.stringify(jsonBody));
-                console.log(info)
+
                 return ({
                     url: "/api/accounts",
                     method: "post",
@@ -83,8 +88,8 @@ export const authApiSlice = createApi({
             },
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
-                await queryFulfilled;
-                dispatch(clearForm());
+                    const response = await queryFulfilled;
+                    dispatch(clearForm());
                 } catch (err) {
                     console.error("give me this", err)
                 }

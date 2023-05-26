@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLogInMutation, useLogOutMutation } from "../../redux-elements/authApi";
 import { showModal, updateField, LOG_IN_MODAL } from "../../redux-elements/accountSlice";
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { eventTargetSelector as target, preventDefault } from "../../redux-elements/utils";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import { CssVarsProvider } from "@mui/joy/styles";
 import Sheet from "@mui/joy/Sheet";
 import Typography from "@mui/joy/Typography";
@@ -13,15 +14,38 @@ import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import Link from "@mui/joy/Link";
 
+
 function LogInModal() {
     const { email, password } = useSelector(state => state.account);
     const dispatch = useDispatch();
-    const [logIn] = useLogInMutation();
+    const [logIn, {isSuccess}] = useLogInMutation();
     const [logOut] = useLogOutMutation();
     const field = useCallback(
         e => dispatch(updateField({field: e.target.name, value: e.target.value})),
         [dispatch],
     );
+    const navigate = useNavigate();
+
+    const handleLogIn = () => {
+        logIn({email: email, password: password});
+       
+    }
+
+    useEffect(() => {
+        try {
+            if (isSuccess) {
+            console.log(isSuccess);
+            navigate("/");
+         }
+        } catch (err) {
+            console.error(err);
+        }
+         
+    }, [isSuccess])
+
+    
+    
+
 
     return (
     <CssVarsProvider>
@@ -69,7 +93,7 @@ function LogInModal() {
                 placeholder="password"
                 />
             </FormControl>
-            <Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={() => logIn({email: email, password: password})}>Log in</Button>
+            <Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={handleLogIn}>Log in</Button>
             <Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={() => logOut()}>Log out</Button>
             <Typography
                 endDecorator={<Link href="/signup">Sign up</Link>}
