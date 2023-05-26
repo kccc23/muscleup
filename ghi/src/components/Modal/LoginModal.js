@@ -28,24 +28,18 @@ function LogInModal() {
 
     const handleLogIn = () => {
         logIn({email: email, password: password});
-       
     }
 
     useEffect(() => {
         try {
             if (isSuccess) {
-            console.log(isSuccess);
             navigate("/");
-         }
+        }
         } catch (err) {
             console.error(err);
         }
-         
+
     }, [isSuccess])
-
-    
-    
-
 
     return (
     <CssVarsProvider>

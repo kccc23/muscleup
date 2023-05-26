@@ -5,7 +5,8 @@ import {
     eventTargetSelector as target,
     preventDefault,
 } from "../../redux-elements/utils";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as React from "react";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
@@ -28,7 +29,8 @@ function InputTag(props) {
 function SignUp() {
     const { username, email, password, first_name, last_name } = useSelector(state => state.account);
     const dispatch = useDispatch();
-    const [signUp] = useSignUpMutation();
+    const [signUp, {isSuccess}] = useSignUpMutation();
+    const navigate = useNavigate();
     const field = useCallback(
         (e) =>
         dispatch(
@@ -36,6 +38,17 @@ function SignUp() {
         ),
         [dispatch]
     );
+
+    useEffect(() => {
+        try {
+            if (isSuccess) {
+            navigate("/");
+            }
+        } catch (err) {
+            console.error(err);
+        }
+        }, [isSuccess]);
+
     return (
         <div className="sign-up-container">
             <h1>Sign Up</h1>

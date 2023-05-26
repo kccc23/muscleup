@@ -21,14 +21,10 @@ export const accountSlice = createSlice({
         clearForm: () => {
             return initialState;
         },
-
     },
 });
 
-
-
 export const { clearForm, updateField, showModal } = accountSlice.actions;
-
 
 export const LOG_IN_MODAL = "LOG_IN_MODAL";
 export const SIGN_UP_MODAL = "SIGN_UP_MODAL";

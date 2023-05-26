@@ -1,16 +1,14 @@
 from nutritionix_call import get_foods, get_exercises
 from fastapi import (
     Depends,
-    HTTPException,
-    status,
     APIRouter,
 )
-
 from auth import authenticator
 from queries.logs import LogMealQueries, LogExerciseQueries
 from models import LogMealIn, LogMeal, LogExercise, LogExerciseIn
 from typing import Optional
 from pydantic import BaseModel
+
 
 router = APIRouter()
 

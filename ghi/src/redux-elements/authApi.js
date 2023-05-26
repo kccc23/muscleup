@@ -1,11 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { clearForm } from './accountSlice';
 
-
-
-
 export const authApiSlice = createApi({
-
     reducerPath: "auth",
     baseQuery: fetchBaseQuery({
         baseUrl: process.env.REACT_APP_API_HOST,
@@ -20,7 +16,7 @@ export const authApiSlice = createApi({
     }),
     tagTypes: ["Account", "Token"],
     endpoints: (builder) => ({
-        
+
         logIn: builder.mutation({
             query: (info) => {
                 let formData = null;
@@ -38,10 +34,10 @@ export const authApiSlice = createApi({
                     credentials: "include",
                 };
             },
-            providesTags: ['Account'],
-            invalidatesTags: (result) => {
-                return (result && ["Token"]) || [];
-            },
+            // providesTags: ['Account'],
+            // invalidatesTags: (result) => {
+            //     return (result && ["Token"]) || [];
+            // },
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const response = await queryFulfilled;
@@ -62,19 +58,10 @@ export const authApiSlice = createApi({
                 url: "/token",
                 credentials: "include",
             }),
-            providesTags: ["Token"],
+            // providesTags: ["Token"],
         }),
         signUp: builder.mutation({
             query: (info) => {
-                // let jsonBody = {
-                //     username: formData.get("username"),
-                //     email: formData.get("email"),
-                //     password: formData.get("password"),
-                //     first_name: formData.get("first_name"),
-                //     last_name: formData.get("last_name"),
-                // };
-                // console.log(JSON.stringify(jsonBody));
-
                 return ({
                     url: "/api/accounts",
                     method: "post",

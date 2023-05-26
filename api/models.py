@@ -21,7 +21,6 @@ class AccountIn(BaseModel):
 class AccountOut(BaseModel):
     id: str
     username: str
-    # password: str
     email: str
     first_name: str
     last_name: str
@@ -34,7 +33,7 @@ class AccountUpdateForm(BaseModel):
     last_name: str | None
     avatar: str | None
 
-# Models for Trainee Exclusively
+
 class TraineeProfile(BaseModel):
     account_id : str
     account_email: str
@@ -98,6 +97,7 @@ class LogMealOut(BaseModel):
     meal_items: list
     datetime: str
 
+
 class LogExercise(BaseModel):
     id: str
     account_id: str
@@ -106,7 +106,6 @@ class LogExercise(BaseModel):
     exercise_name: str
     exercise_items: list
     datetime: str
-
 
 class LogExerciseIn(BaseModel):
     log_exercise: str
@@ -119,4 +118,12 @@ class LogExerciseIn(BaseModel):
 class LogExerciseOut(BaseModel):
     exercise_items: list
     exercise_name: str
+    datetime: str
+
+# to be continued
+class LogWeight(BaseModel):
+    id: str
+    account_id: str
+    account_email: str
+    log_weight: str
     datetime: str
