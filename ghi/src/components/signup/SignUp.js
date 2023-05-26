@@ -39,7 +39,7 @@ function SignUp() {
     return (
         <div className="sign-up-container">
             <h1>Sign Up</h1>
-            <form method="POST" onSubmit={preventDefault(signUp, target)}>
+            <form>
                 <FormLabel>Username</FormLabel>
                 <InputTag field={field} value={username} name="username" type="text" placeholder="johndoe" />
                 <FormLabel>Email</FormLabel>
@@ -50,10 +50,10 @@ function SignUp() {
                 <InputTag field={field} value={first_name} name="first_name" type="text" placeholder="john" />
                 <FormLabel>Last Name</FormLabel>
                 <InputTag field={field} value={last_name} name="last_name" type="text" placeholder="doe" />
-                <Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={() => signUp(
-                    {username: username, email: email, password: password, first_name: first_name, last_name: last_name}
-                )}>Sign Up</Button>
             </form>
+            <Button sx={{ mt: 1 /* margin top */ }} onClick={() => signUp(
+                {username: username, email: email, password: password, first_name: first_name, last_name: last_name}
+            )}>Sign Up</Button>
 
         </div>
     )

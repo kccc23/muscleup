@@ -69,6 +69,7 @@ export const authApiSlice = createApi({
                 //     last_name: formData.get("last_name"),
                 // };
                 // console.log(JSON.stringify(jsonBody));
+                console.log(info)
                 return ({
                     url: "/api/accounts",
                     method: "post",
@@ -83,7 +84,7 @@ export const authApiSlice = createApi({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                 await queryFulfilled;
-                // dispatch(clearForm());
+                dispatch(clearForm());
                 } catch (err) {
                     console.error("give me this", err)
                 }
