@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLogInMutation, useLogOutMutation } from "../../redux-elements/authApi";
-import { showModal, updateField, LOG_IN_MODAL } from "../../redux-elements/accountSlice";
-import { useCallback, useEffect } from 'react';
-import { eventTargetSelector as target, preventDefault } from "../../redux-elements/utils";
+import { updateField } from "../../redux-elements/accountSlice";
+import { useCallback, useEffect, useState } from 'react';
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { CssVarsProvider } from "@mui/joy/styles";
@@ -13,6 +12,8 @@ import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import Link from "@mui/joy/Link";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 
 function LogInModal() {
@@ -25,21 +26,28 @@ function LogInModal() {
         [dispatch],
     );
     const navigate = useNavigate();
+    const [error, setError] = useState(false);
 
-    const handleLogIn = () => {
-        logIn({email: email, password: password});
+    const handleLogIn = async () => {
+        try {
+            await logIn({email: email, password: password});
+        } catch(err) {
+            console.log("hello")
+            setError(true);
+        }
     }
 
     useEffect(() => {
         try {
             if (isSuccess) {
-            navigate("/");
+                setError(false);
+                navigate("/");
         }
         } catch (err) {
             console.error(err);
+            console.log("catcat")
         }
-
-    }, [isSuccess])
+    }, [isSuccess, navigate])
 
     return (
     <CssVarsProvider>
@@ -65,7 +73,13 @@ function LogInModal() {
                 </Typography>
                 <Typography level="body2">Sign in to continue.</Typography>
             </div>
-            <FormControl method="POST" onSubmit={preventDefault(logIn, target)}>
+            {error && (
+                <Alert severity="error" onClose={() => {}}>
+                <AlertTitle>Error</AlertTitle>
+                    Please check your email or password.
+                </Alert>
+            )}
+            <FormControl>
                 <FormLabel>Email</FormLabel>
                 <Input
                 required
