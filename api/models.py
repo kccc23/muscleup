@@ -40,43 +40,35 @@ class TraineeProfile(BaseModel):
     id: str
     goal : str
     height: int
-    weight: int
-    goal_weight: int
+    weight: float
+    goal_weight: float
     date_of_birth: str
     gender: str
-    country: str
-    state: str
 
 class TraineeProfileIn(BaseModel):
     goal : str
     height: int
-    weight: int
-    goal_weight: int
+    weight: float
+    goal_weight: float
     date_of_birth: str
     gender: str
-    country: str
-    state: str
 
 class TraineeProfileOut(BaseModel):
     account_email: str
     goal : str
     height: int
-    weight: int
-    goal_weight: int
+    weight: float
+    goal_weight: float
     date_of_birth: str
     gender: str
-    country: str
-    state: str
 
 class TraineeProfileUpdateForm(BaseModel):
     goal : str | None
     height: int | None
-    weight: int | None
-    goal_weight: int | None
+    weight: float | None
+    goal_weight: float | None
     date_of_birth: str | None
     gender: str | None
-    country: str | None
-    state: str | None
 
 
 class LogMeal(BaseModel):

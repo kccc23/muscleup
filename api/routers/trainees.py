@@ -34,12 +34,12 @@ async def create_trainee_profile(
     ),
 ):
     if account_data:
-        # check for duplicate profile
-        check = repo.get(account_data["id"])
-        if check:
-            return {
-                "message": "profile already exists, aborting profile creation"
-            }
+        # # check for duplicate profile
+        # check = repo.get(account_data["id"])
+        # if check:
+        #     return {
+        #         "message": "profile already exists, aborting profile creation"
+        #     }
         # create profile
         try:
             trainee = repo.create(info, account_data)
@@ -49,12 +49,15 @@ async def create_trainee_profile(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="Trainee already exists with this account information.",
             )
-    return {"message": "profile cannot be created if not logged in"}
+    raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Profile cannot be created if not logged in.",
+        )
 
 
 # Route to be determined once front-end is more defined
 @router.get(
-    "/api/trainee_profiles/{account_id}",
+    "/api/trainee_profiles/",
     response_model=TraineeProfileOut | dict,
 )
 async def get_trainee_profile(
@@ -70,7 +73,7 @@ async def get_trainee_profile(
 
 
 @router.put(
-    "/api/trainee_profiles/{account_id}",
+    "/api/trainee_profiles",
     response_model=TraineeProfileOut | dict,
 )
 async def update_trainee_profile(
@@ -87,7 +90,7 @@ async def update_trainee_profile(
     return {"message": "no account logged in"}
 
 
-@router.delete("/api/trainee_profiles/{account_id}", response_model=dict)
+@router.delete("/api/trainee_profiles", response_model=dict)
 async def delete_trainee_profile(
     account_data: Optional[dict] = Depends(
         authenticator.try_get_current_account_data

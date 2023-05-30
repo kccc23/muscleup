@@ -17,7 +17,6 @@
         "goal_weight": int,
         "date_of_birth": date,
         "gender": str,
-        "country": str 
     }
 
     ```

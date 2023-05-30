@@ -58,8 +58,6 @@ class TraineeQueries(Queries):
                     "goal_weight": props["goal_weight"],
                     "date_of_birth": props["date_of_birth"],
                     "gender": props["gender"],
-                    "country": props["country"],
-                    "state": props["state"],
                 }
             },
         )

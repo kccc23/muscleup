@@ -78,7 +78,7 @@ export const authApiSlice = createApi({
                     const response = await queryFulfilled;
                     dispatch(clearForm());
                 } catch (err) {
-                    console.error("give me this", err)
+                    console.error("you got an error", err)
                 }
             },
         }),
