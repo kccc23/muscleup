@@ -1,13 +1,17 @@
-import React from 'react'
-import { useSelector } from 'react-redux';
-
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useGetQuery } from "../../redux-elements/profileApi";
+import { useGetTokenQuery } from "../../redux-elements/authApi";
 
 function Main() {
-  return (
-    <div>
-      <h1>HELLOOOOO</h1>
-    </div>
-  )
+	const { data: ProfileInformation, error, isLoading } = useGetQuery();
+	console.log(ProfileInformation);
+
+	return (
+		<div>
+			<button>TESTTTTTING</button>
+		</div>
+	);
 }
 
-export default Main
+export default Main;

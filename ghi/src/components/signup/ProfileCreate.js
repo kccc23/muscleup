@@ -1,5 +1,5 @@
 import "./signup.css";
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import FormLabel from "@mui/joy/FormLabel/FormLabel";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCreateProfileMutation } from "../../redux-elements/profileApi";
 import { updateField } from "../../redux-elements/profileSlice";
 import { useNavigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 
 
 
@@ -19,6 +21,7 @@ function ProfileCreate() {
     const [createProfile, {isSuccess}] = useCreateProfileMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    
     const { goal, height_ft, height_in, weight, goal_weight, date_of_birth, gender } = useSelector(
         (state) => state.profile
     );
@@ -42,8 +45,10 @@ function ProfileCreate() {
         [dispatch],
     );
 
+    const [error, setError] = useState(false);
+
     const handleProfileCreate = async () => {
-        createProfile({goal: goal,
+        const response = await createProfile({goal: goal,
             height_ft: height_ft,
             height_in: height_in,
             weight: weight, 
@@ -51,6 +56,13 @@ function ProfileCreate() {
             date_of_birth: date_of_birth,
             gender: gender
         })
+
+        if (response.data) {
+			setError(false);
+			navigate("/");
+		} else {
+			setError(true);
+		}
     }
 
     
@@ -58,6 +70,12 @@ function ProfileCreate() {
     return (
         <div className="sign-up-container">
             <h1>Create Your Profile</h1>
+            {error && (
+                <Alert severity="error" onClose={() => {setError(false)}}>
+                <AlertTitle>Error</AlertTitle>
+                    Profile for this user already exists
+                </Alert>
+            )}
             <form>
             <FormLabel>Goals</FormLabel>
             {/* come back to enforce max length on text-area */}
@@ -69,7 +87,7 @@ function ProfileCreate() {
                 maxRows={6}
                 placeholder="What are your goals?"
             />
-            <FormLabel>Date</FormLabel>
+            <FormLabel>Date of Birth</FormLabel>
             <Input value={date_of_birth} name="date_of_birth" type="date" onChange={field} />
             <FormLabel>Height</FormLabel>
             <Select placeholder={6}  name="height_ft" endDecorator="ft" onChange={handleFtSelect}>
@@ -117,7 +135,7 @@ function ProfileCreate() {
                 <Option value="Other" key="Other">Other</Option>
             </Select>
             </form>
-            <Button sx={{ mt: 1 }} type="submit" onClick={handleProfileCreate}>Log in</Button>
+            <Button sx={{ mt: 1 }} type="submit" onClick={handleProfileCreate}>Create Profile</Button>
         </div>
     );
 }
