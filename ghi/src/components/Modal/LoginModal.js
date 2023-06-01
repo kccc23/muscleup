@@ -33,14 +33,14 @@ function LogInModal() {
 	const [error, setError] = useState(false);
 
 
-	
+
 
 	const handleLogIn = async () => {
 		const response = await logIn({ email: email, password: password });
 
 		if (response.data) {
 			setError(false);
-			navigate("/");
+			navigate("/dashboard");
 		} else {
 			setError(true);
 		}

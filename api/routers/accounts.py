@@ -56,7 +56,7 @@ async def create_account(
 
 
 # Route to be determined once front-end is more defined
-@router.get("/api/accounts/{email}")
+@router.get("/api/accounts")
 async def get_current_account_info(
     account_data: Optional[dict] = Depends(
         authenticator.try_get_current_account_data

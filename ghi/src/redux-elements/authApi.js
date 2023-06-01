@@ -13,7 +13,12 @@ export const authApiSlice = createApi({
 				credentials: "include",
 			}),
 		}),
-
+		getUser: builder.query({
+			query: () => ({
+				url: "/api/accounts",
+				credentials: "include",
+			}),
+		}),
 		logIn: builder.mutation({
 			query: (info) => {
 				let formData = null;
@@ -68,4 +73,4 @@ export const authApiSlice = createApi({
 	}),
 });
 
-export const { useGetTokenQuery, useLogInMutation, useLogOutMutation, useSignUpMutation } = authApiSlice;
+export const { useGetTokenQuery, useGetUserQuery, useLogInMutation, useLogOutMutation, useSignUpMutation } = authApiSlice;

@@ -6,27 +6,17 @@ export const profileApiSlice = createApi({
 	reducerPath: "ProfileAPI",
 	baseQuery: fetchBaseQuery({
 		baseUrl: process.env.REACT_APP_API_HOST,
-		prepareHeaders: (headers, { getState }) => {
-			const selector = authApiSlice.endpoints.getToken.select();
-			const { data: tokenData } = selector(getState());
-			if (tokenData && tokenData.access_token) {
-				headers.set("Authorization", `Bearer ${tokenData.access_token}`);
-			}
-			return headers;
-		},
 	}),
 	tagTypes: ["ProfileInformation", "Token", "Account"],
 	endpoints: (builder) => ({
-		get: builder.query({
+		getProfile: builder.query({
 			query: () => {
 				return {
 					url: "/api/trainee_profiles",
-					method: "get",
 					credentials: "include",
 				};
 			},
 		}),
-
 		createProfile: builder.mutation({
 			query: (info) => {
 				info.weight = parseFloat(info.weight).toFixed(2);
@@ -55,4 +45,4 @@ export const profileApiSlice = createApi({
 	}),
 });
 
-export const { useCreateProfileMutation, useGetQuery } = profileApiSlice;
+export const { useCreateProfileMutation, useGetProfileQuery } = profileApiSlice;

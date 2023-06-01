@@ -4,6 +4,7 @@ import { authApiSlice } from "./authApi";
 import { accountSlice } from "./accountSlice";
 import { profileApiSlice } from "./profileApi";
 import { profileSlice } from "./profileSlice";
+import { mealApiSlice } from "./logMealApi";
 
 export const store = configureStore({
 	reducer: {
@@ -11,12 +12,14 @@ export const store = configureStore({
 		[accountSlice.name]: accountSlice.reducer,
 		[profileApiSlice.reducerPath]: profileApiSlice.reducer,
 		[profileSlice.name]: profileSlice.reducer,
+		[mealApiSlice.reducerPath]: mealApiSlice.reducer,
 
 	},
 	middleware: getDefaultMiddleware => {
     return getDefaultMiddleware()
 		.concat(authApiSlice.middleware)
 		.concat(profileApiSlice.middleware)
+		.concat(mealApiSlice.middleware)
 	},
 });
 

@@ -57,7 +57,7 @@ async def create_trainee_profile(
 
 # Route to be determined once front-end is more defined
 @router.get(
-    "/api/trainee_profiles/",
+    "/api/trainee_profiles",
     response_model=TraineeProfileOut | dict,
 )
 async def get_trainee_profile(
