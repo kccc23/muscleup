@@ -1,16 +1,14 @@
 from nutritionix_call import get_foods, get_exercises
 from fastapi import (
     Depends,
-    HTTPException,
-    status,
     APIRouter,
 )
-
 from auth import authenticator
 from queries.logs import LogMealQueries, LogExerciseQueries
 from models import LogMealIn, LogMeal, LogExercise, LogExerciseIn
 from typing import Optional
 from pydantic import BaseModel
+
 
 router = APIRouter()
 
@@ -24,7 +22,7 @@ class DeleteMealForm(BaseModel):
 
 
 # placeholder for an account identifier
-@router.post("/api/{account}/meals", response_model=LogMeal | dict)
+@router.post("/api/meals", response_model=LogMeal | dict)
 async def create_meal(
     info: LogMealIn,
     repo: LogMealQueries = Depends(),
@@ -39,7 +37,7 @@ async def create_meal(
     return {"message": "meal cannot be created if not logged in"}
 
 
-@router.get("/api/{account}/meals", response_model=list[LogMeal] | dict)
+@router.get("/api/meals", response_model=list[LogMeal] | dict)
 async def get_meals(
     repo: LogMealQueries = Depends(),
     account_data: Optional[dict] = Depends(
@@ -52,7 +50,7 @@ async def get_meals(
     return {"message": "meal cannot be retrieved if not logged in"}
 
 
-@router.delete("/api/{account}/meals/{meal_id}", response_model=dict)
+@router.delete("/api/meals/{meal_id}", response_model=dict)
 async def delete_meal(
     meal_id: str,
     repo: LogMealQueries = Depends(),

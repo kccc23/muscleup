@@ -21,7 +21,6 @@ class AccountIn(BaseModel):
 class AccountOut(BaseModel):
     id: str
     username: str
-    password: str
     email: str
     first_name: str
     last_name: str
@@ -34,50 +33,42 @@ class AccountUpdateForm(BaseModel):
     last_name: str | None
     avatar: str | None
 
-# Models for Trainee Exclusively
+
 class TraineeProfile(BaseModel):
     account_id : str
     account_email: str
     id: str
     goal : str
     height: int
-    weight: int
-    goal_weight: int
+    weight: float
+    goal_weight: float
     date_of_birth: str
     gender: str
-    country: str
-    state: str
 
 class TraineeProfileIn(BaseModel):
     goal : str
     height: int
-    weight: int
-    goal_weight: int
+    weight: float
+    goal_weight: float
     date_of_birth: str
     gender: str
-    country: str
-    state: str
 
 class TraineeProfileOut(BaseModel):
     account_email: str
     goal : str
     height: int
-    weight: int
-    goal_weight: int
+    weight: float
+    goal_weight: float
     date_of_birth: str
     gender: str
-    country: str
-    state: str
 
 class TraineeProfileUpdateForm(BaseModel):
     goal : str | None
     height: int | None
-    weight: int | None
-    goal_weight: int | None
+    weight: float | None
+    goal_weight: float | None
     date_of_birth: str | None
     gender: str | None
-    country: str | None
-    state: str | None
 
 
 class LogMeal(BaseModel):
@@ -98,6 +89,7 @@ class LogMealOut(BaseModel):
     meal_items: list
     datetime: str
 
+
 class LogExercise(BaseModel):
     id: str
     account_id: str
@@ -106,7 +98,6 @@ class LogExercise(BaseModel):
     exercise_name: str
     exercise_items: list
     datetime: str
-
 
 class LogExerciseIn(BaseModel):
     log_exercise: str
@@ -119,4 +110,12 @@ class LogExerciseIn(BaseModel):
 class LogExerciseOut(BaseModel):
     exercise_items: list
     exercise_name: str
+    datetime: str
+
+# to be continued
+class LogWeight(BaseModel):
+    id: str
+    account_id: str
+    account_email: str
+    log_weight: str
     datetime: str

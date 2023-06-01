@@ -1,36 +1,29 @@
-import { useEffect, useState } from "react";
-import Construct from "./Construct.js";
-import ErrorNotification from "./ErrorNotification";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import Main from "./components/mainpage/Main";
+import Navbar from "./components/navbar/Navbar";
+import LogInModal from "./components/Modal/LoginModal";
+import SignUp from "./components/signup/SignUp";
+import ProfileCreate from "./components/signup/ProfileCreate";
+import Dashboard from "./components/dashboard/DashboardPage";
+import ProfileDashboard from "./components/dashboard/ProfileShow";
+
 
 function App() {
-  const [launchInfo, setLaunchInfo] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    async function getData() {
-      let url = `${process.env.REACT_APP_SAMPLE_SERVICE_API_HOST}/api/launch-details`;
-      console.log("fastapi url: ", url);
-      let response = await fetch(url);
-      console.log("------- hello? -------");
-      let data = await response.json();
-
-      if (response.ok) {
-        console.log("got launch data!");
-        setLaunchInfo(data.launch_details);
-      } else {
-        console.log("drat! something happened");
-        setError(data.message);
-      }
-    }
-    getData();
-  }, []);
-
   return (
-    <div>
-      <ErrorNotification error={error} />
-      <Construct info={launchInfo} />
-    </div>
+    <BrowserRouter>
+      <Navbar />
+      <div className="container">
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/login" element={<LogInModal />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/profileform" element={<ProfileCreate />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<ProfileDashboard />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
