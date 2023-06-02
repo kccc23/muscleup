@@ -96,7 +96,6 @@ async def update_trainee_profile(
     return {"message": "no account logged in"}
 
 
-
 @router.delete("/api/trainee_profiles", response_model=dict)
 async def delete_trainee_profile(
     account_data: Optional[dict] = Depends(

@@ -2,14 +2,17 @@ import "./dashboard.css";
 import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { useGetTokenQuery } from "../../redux-elements/authApi";
+import { useGetProfileQuery } from "../../redux-elements/profileApi";
 import ProfileDashboard from "./ProfileShow";
 import Logs from './Logs';
 
 
 function Dashboard() {
-    const { data: account, error, isLoading, refetch } = useGetTokenQuery();
+    const { data: account, error, isLoading, refetch: refetchToken } = useGetTokenQuery();
+    const { data: profile, refetch: refetchProfile } = useGetProfileQuery();
 
-    useEffect(() => { refetch() }, [refetch]);
+    useEffect(() => { refetchToken() }, [refetchToken]);
+    useEffect(() => { refetchProfile() }, [refetchProfile]);
 
     if (error) {
         return <div className="error-loading-nullData-div">Oh no, there is an error</div>;
@@ -25,6 +28,17 @@ function Dashboard() {
                 <h3>
                     Please{' '}
                     <Link to="/login">Login</Link> or <Link to="/signup">Sign up</Link> to access the dashboard
+                </h3>
+            </div>
+        );
+    }
+
+    if (account && profile && 'message' in profile) {
+        return (
+            <div className="error-loading-nullData-div">
+                <h3>
+                    Please{' '}
+                    <Link to="/profileform">Create Your Profile</Link> to access the dashboard
                 </h3>
             </div>
         );

@@ -21,7 +21,7 @@ function ProfileCreate() {
     const [createProfile, {isSuccess}] = useCreateProfileMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
     const { goal, height_ft, height_in, weight, goal_weight, date_of_birth, gender } = useSelector(
         (state) => state.profile
     );
@@ -51,7 +51,7 @@ function ProfileCreate() {
         const response = await createProfile({goal: goal,
             height_ft: height_ft,
             height_in: height_in,
-            weight: weight, 
+            weight: weight,
             goal_weight: goal_weight,
             date_of_birth: date_of_birth,
             gender: gender
@@ -59,13 +59,11 @@ function ProfileCreate() {
 
         if (response.data) {
 			setError(false);
-			navigate("/");
+			navigate("/dashboard");
 		} else {
 			setError(true);
 		}
     }
-
-    
 
     return (
         <div className="sign-up-container">

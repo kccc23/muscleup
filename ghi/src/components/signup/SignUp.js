@@ -43,7 +43,7 @@ function SignUp() {
   useEffect(() => {
     try {
       if (isSuccess) {
-        navigate("/");
+        navigate("/profileform");
       }
     } catch (err) {
       console.error(err);
