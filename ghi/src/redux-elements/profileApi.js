@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { clearForm } from "./profileSlice";
-import { authApiSlice } from "./authApi";
 
 export const profileApiSlice = createApi({
 	reducerPath: "ProfileAPI",

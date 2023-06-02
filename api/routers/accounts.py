@@ -56,14 +56,16 @@ async def create_account(
 
 
 # Route to be determined once front-end is more defined
-@router.get("/api/accounts")
+@router.get("/api/accounts", response_model=Account | dict)
 async def get_current_account_info(
+    repo: AccountQueries = Depends(),
     account_data: Optional[dict] = Depends(
         authenticator.try_get_current_account_data
     ),
 ):
     if account_data:
-        return account_data
+        account = repo.get(account_data["email"])
+        return account
     return {"message": "no account logged in"}
 
 
@@ -112,11 +114,13 @@ async def delete_account_info(
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
     request: Request,
+    repo: AccountQueries = Depends(),
     account: Account = Depends(authenticator.try_get_current_account_data)
 ) -> AccountToken | None:
     if account and authenticator.cookie_name in request.cookies:
+        account_info = repo.get(account["email"])
         return {
             "access_token": request.cookies[authenticator.cookie_name],
             "type": "Bearer",
-            "account": account,
+            "account": account_info,
         }

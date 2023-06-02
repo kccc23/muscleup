@@ -6,18 +6,14 @@ export const authApiSlice = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: process.env.REACT_APP_API_HOST,
 	}),
+	tagTypes: ["Token"],
 	endpoints: (builder) => ({
 		getToken: builder.query({
 			query: () => ({
 				url: "/token",
 				credentials: "include",
 			}),
-		}),
-		getUser: builder.query({
-			query: () => ({
-				url: "/api/accounts",
-				credentials: "include",
-			}),
+			providesTags: ["Token"],
 		}),
 		logIn: builder.mutation({
 			query: (info) => {
@@ -36,6 +32,7 @@ export const authApiSlice = createApi({
 					credentials: "include",
 				};
 			},
+			invalidateTags: ["Token"],
 			async onQueryStarted(arg, { dispatch, queryFulfilled, query }) {
 				try {
 					const response = await queryFulfilled;
@@ -51,6 +48,7 @@ export const authApiSlice = createApi({
 				method: "delete",
 				credentials: "include",
 			}),
+			invalidateTags: ["Token"],
 		}),
 		signUp: builder.mutation({
 			query: (info) => {
@@ -61,6 +59,7 @@ export const authApiSlice = createApi({
 					credentials: "include",
 				};
 			},
+			invalidateTags: ["Token"],
 			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
 				try {
 					const response = await queryFulfilled;
@@ -73,4 +72,4 @@ export const authApiSlice = createApi({
 	}),
 });
 
-export const { useGetTokenQuery, useGetUserQuery, useLogInMutation, useLogOutMutation, useSignUpMutation } = authApiSlice;
+export const { useGetTokenQuery, useLogInMutation, useLogOutMutation, useSignUpMutation } = authApiSlice;
