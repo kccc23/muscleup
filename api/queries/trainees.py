@@ -10,6 +10,9 @@ from models import (
 class DuplicateTraineeError(ValueError):
     pass
 
+class NoProfileError(ValueError):
+    pass
+
 
 class TraineeQueries(Queries):
     DB_NAME = "muscleup"
@@ -41,7 +44,10 @@ class TraineeQueries(Queries):
         self, info: TraineeProfileUpdateForm, account_email: str
     ) -> TraineeProfileOut:
         props = self.collection.find_one({"account_email": account_email})
-        props["id"] = str(props["_id"])
+        try:
+            props["id"] = str(props["_id"])
+        except TypeError:
+            raise NoProfileError()
         for k, v in info.dict().items():
             if v == None or v == "":
                 pass

@@ -6,7 +6,7 @@ from fastapi import (
 )
 
 from auth import authenticator
-from queries.trainees import TraineeQueries, DuplicateTraineeError
+from queries.trainees import TraineeQueries, DuplicateTraineeError, NoProfileError
 from models import (
     TraineeProfileIn,
     TraineeProfileOut,
@@ -74,7 +74,7 @@ async def get_trainee_profile(
 
 @router.put(
     "/api/trainee_profiles",
-    response_model=TraineeProfileOut | dict,
+    response_model=TraineeProfileOut | HttpError | dict,
 )
 async def update_trainee_profile(
     info: TraineeProfileUpdateForm,
@@ -85,9 +85,16 @@ async def update_trainee_profile(
 ):
     if account_data:
         account_email = account_data["email"]
-        trainee_profile = repo.update(info, account_email)
-        return trainee_profile
+        try:
+            trainee_profile = repo.update(info, account_email)
+            return trainee_profile
+        except NoProfileError:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="You need to create a profile.",
+            )
     return {"message": "no account logged in"}
+
 
 
 @router.delete("/api/trainee_profiles", response_model=dict)
