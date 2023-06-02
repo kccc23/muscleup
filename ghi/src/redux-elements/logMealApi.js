@@ -42,6 +42,7 @@ export const mealApiSlice = createApi({
                     credentials: "include",
                 };
             },
+            invalidatesTags: ["MealsList"],
             async onQueryStarted(arg, { queryFulfilled }) {
                 try {
                     const response = await queryFulfilled;

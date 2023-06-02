@@ -6,3 +6,11 @@
     display: none
 }
 
+.error-loading-nullData-div {
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    margin: 6rem;
+    padding: 0;
+    box-sizing: border-box;
+}

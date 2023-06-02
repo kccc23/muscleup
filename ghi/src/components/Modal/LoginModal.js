@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { authApiSlice } from "../../redux-elements/authApi";
 import { useLogInMutation, useLogOutMutation } from "../../redux-elements/authApi";
 import { updateField } from "../../redux-elements/accountSlice";
 import { useCallback, useState } from "react";
@@ -19,21 +20,19 @@ import WarningIcon from "@mui/icons-material/Warning";
 import CloseIcon from "@mui/icons-material/Close";
 
 
-
 function LogInModal() {
 	const { email, password } = useSelector((state) => state.account);
 	const dispatch = useDispatch();
 	const [logIn, { isSuccess }] = useLogInMutation();
 	const [logOut] = useLogOutMutation();
-	const field = useCallback(
-		(e) => dispatch(updateField({ field: e.target.name, value: e.target.value })),
-		[dispatch]
-	);
 	const navigate = useNavigate();
 	const [error, setError] = useState(false);
 
-
-
+	const field = useCallback(
+    (e) =>
+		dispatch(updateField({ field: e.target.name, value: e.target.value })),
+		[dispatch]
+	);
 
 	const handleLogIn = async () => {
 		const response = await logIn({ email: email, password: password });
@@ -45,7 +44,6 @@ function LogInModal() {
 			setError(true);
 		}
 	};
-
 
 	return (
 		<CssVarsProvider>
@@ -123,7 +121,7 @@ function LogInModal() {
 					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={handleLogIn}>
 						Log in
 					</Button>
-					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={() => logOut()}>
+					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={() => {logOut(); dispatch(authApiSlice.util.resetApiState());}}>
 						Log out
 					</Button>
 					<Typography
