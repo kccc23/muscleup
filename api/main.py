@@ -5,11 +5,14 @@ from routers import accounts, trainees, logs
 from auth import authenticator
 import os
 
+
 app = FastAPI()
+
+cors_url = os.environ.get("REACT_URL")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.environ.get("CORS_HOST", "http://localhost:3000")],
+    allow_origins=[os.environ.get("CORS_HOST", cors_url)],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

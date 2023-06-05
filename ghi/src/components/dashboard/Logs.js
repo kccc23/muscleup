@@ -16,7 +16,7 @@ import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 
 
-function LogModal(showForm, setShowForm, form, setForm, createMutation, updateWeightProfile) {
+function LogModal(showForm, setShowForm, form, setForm, createMutation, updateWeightProfile=null) {
     const fields = Object.keys(form);
 
     const handleFormChange = (e) => {
@@ -28,7 +28,9 @@ function LogModal(showForm, setShowForm, form, setForm, createMutation, updateWe
     const handleSubmit = (e) => {
         e.preventDefault();
         createMutation(form);
-        updateWeightProfile(form);
+        if (updateWeightProfile) {
+            updateWeightProfile(form);
+        }
         setShowForm(false);
     }
 

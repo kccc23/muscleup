@@ -1,7 +1,11 @@
 import json
 import requests
 import os
-from keys import NUTRITIONIX_ID, NUTRITIONIX_KEY
+
+NUTRITIONIX_ID = os.environ.get("NUTRITIONIX_ID")
+NUTRITIONIX_KEY = os.environ.get("NUTRITIONIX_KEY")
+NUTRITIONIX_API_URL = os.environ.get("NUTRITIONIX_API_URL")
+
 
 def get_foods(log_meal):
     headers = {
@@ -10,7 +14,7 @@ def get_foods(log_meal):
         "x-remote-user-id": "0",
         "Content-Type": "application/json"
     }
-    url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
+    url = f"{NUTRITIONIX_API_URL}/v2/natural/nutrients"
     data = {
         "query": log_meal,
         "timezone": "US/Eastern",
@@ -42,7 +46,7 @@ def get_exercises(log_exercise, gender, weight_kg, height_cm, age):
         "x-remote-user-id": "0",
         "Content-Type": "application/json"
     }
-    url = "https://trackapi.nutritionix.com/v2/natural/exercise"
+    url = f"{NUTRITIONIX_API_URL}/v2/natural/exercise"
     data = {
         "query": log_exercise,
         "gender": gender,

@@ -122,7 +122,7 @@ https://gitlab.com/GROUP_NAME/PROJECT_NAME
 
 then your GitLab pages URL will be
 
-https://GROUP_NAME.gitlab.io/PROJECT_NAME
+https://Sonny-HT.gitlab.io/muscleup
 
 ### Initialize CapRover
 

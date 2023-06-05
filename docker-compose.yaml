@@ -9,8 +9,12 @@ services:
         volumes:
             - ./api:/app
         environment:
-            MONGO_URL: mongodb://root:password@mongo
-            SIGNING_KEY: qm4og5yazi53mwa97imwj6c7usf4a8nmtgxhv2ws
+            MONGO_URL: ${MONGO_URL}
+            SIGNING_KEY: ${SIGNING_KEY}
+            NUTRITIONIX_ID: ${NUTRITIONIX_ID}
+            NUTRITIONIX_KEY: ${NUTRITIONIX_KEY}
+            NUTRITIONIX_API_URL: ${NUTRITIONIX_API_URL}
+            REACT_URL: ${REACT_URL}
             WAIT_HOSTS: mongo:27017
             WAIT_BEFORE: 5
             WAIT_TIMEOUT: 60
@@ -29,7 +33,7 @@ services:
             HOST: "0.0.0.0"
             PUBLIC_URL: http://localhost:3000
             REACT_APP_API_HOST: http://localhost:8000
-            # REACT_APP_SAMPLE_SERVICE_API_HOST: ${REACT_APP_SAMPLE_SERVICE_API_HOST}
+            REACT_APP_SAMPLE_SERVICE_API_HOST: ${REACT_APP_SAMPLE_SERVICE_API_HOST}
 
     mongo:
         image: mongo
@@ -39,8 +43,8 @@ services:
         ports:
             - 27017:27017
         environment:
-            MONGO_INITDB_ROOT_USERNAME: root
-            MONGO_INITDB_ROOT_PASSWORD: password
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_DB_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_PASSWORD}
 
 volumes:
     mongodb_data:
