@@ -112,10 +112,12 @@ class LogExerciseOut(BaseModel):
     exercise_name: str
     datetime: str
 
-# to be continued
 class LogWeight(BaseModel):
     id: str
     account_id: str
     account_email: str
-    log_weight: str
+    log_weight: float
     datetime: str
+
+class LogWeightIn(BaseModel):
+    log_weight: float

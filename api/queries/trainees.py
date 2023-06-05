@@ -55,7 +55,7 @@ class TraineeQueries(Queries):
                 props[k] = v
 
         self.collection.update_one(
-            {"email": account_email},
+            {"account_email": account_email},
             {
                 "$set": {
                     "goal": props["goal"],
@@ -67,7 +67,7 @@ class TraineeQueries(Queries):
                 }
             },
         )
-
+        
         return TraineeProfileOut(**props)
 
     def delete(self, account_email) -> dict:
@@ -76,3 +76,5 @@ class TraineeQueries(Queries):
             return {"message": "profile deleted successfully"}
         else:
             return {"message": "profile deletion failed"}
+        
+

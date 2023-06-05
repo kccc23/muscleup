@@ -1,5 +1,5 @@
 from .client import Queries
-from models import LogMeal, LogMealIn, LogExercise, LogExerciseIn
+from models import LogMeal, LogMealIn, LogExercise, LogExerciseIn, LogWeight, LogWeightIn
 from datetime import datetime
 from bson.objectid import ObjectId
 
@@ -98,3 +98,27 @@ class LogExerciseQueries(Queries):
             return {"message": f"{status.deleted_count} exercise logs deleted"}
         else:
             return {"message": "exercise deletion failed"}
+
+class LogWeightQueries(Queries):
+    DB_NAME = "muscleup"
+    COLLECTION = "log_weights"
+
+    def get_all(self, account_id: str) -> list[LogWeight]:
+        props = self.collection.find({"account_id": account_id})
+        weights = []
+        for prop in props:
+            prop["id"] = str(prop["_id"])
+            weights.append(LogWeight(**prop))
+        return weights
+
+    def create(self, info: LogWeightIn, account_data) -> LogWeight:
+        props = info.dict()
+        props["account_id"] = account_data["id"]
+        props["account_email"] = account_data["email"]
+        props["datetime"] = datetime.now().isoformat()
+
+        self.collection.insert_one(props)
+
+        props["id"] = str(props["_id"])
+
+        return LogWeight(**props)

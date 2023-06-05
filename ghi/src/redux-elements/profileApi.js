@@ -15,6 +15,7 @@ export const profileApiSlice = createApi({
 					credentials: "include",
 				};
 			},
+			providesTags: ["ProfileInformation"],
 		}),
 		createProfile: builder.mutation({
 			query: (info) => {
@@ -41,7 +42,37 @@ export const profileApiSlice = createApi({
 				} catch (err) {}
 			},
 		}),
+		updateWeightProfile: builder.mutation({
+			query: (info) => {
+				const weight = (info.log_weight * 0.453592).toFixed(2);
+				const weight_info = {
+					"goal" : "",
+					"height" : null,
+					"weight" : weight,
+					"goal_weight": null,
+					"date_of_birth": "",
+					"gender" : "",
+				}
+				return {
+					url: "/api/trainee_profiles/",
+					method : "put",
+					body : weight_info,
+					credentials : "include",
+
+				}
+			},
+			invalidatesTags: ["ProfileInformation"],
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const response = await queryFulfilled;
+					dispatch(clearForm());
+				} catch (err) {}
+			},
+
+		}
+
+		)
 	}),
 });
 
-export const { useCreateProfileMutation, useGetProfileQuery } = profileApiSlice;
+export const { useCreateProfileMutation, useGetProfileQuery, useUpdateWeightProfileMutation } = profileApiSlice;
