@@ -63,6 +63,9 @@ async def get_current_account_info(
         authenticator.try_get_current_account_data
     ),
 ):
+    print(account_data)
+    print(type(account_data))
+    print("AHHHHHHHHHHH!!!!!!!!!!!!")
     if account_data:
         account = repo.get(account_data["email"])
         return account
