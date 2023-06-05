@@ -19,15 +19,6 @@ class Account(BaseModel):
     role: str
 
 
-# class AccountOut(BaseModel):
-#     id: str
-#     username: str
-#     email: str
-#     first_name: str
-#     last_name: str
-#     avatar: str | None
-#     role: str
-
 class FakeQueries:
     def get(self, email):
         props = "make query result"
@@ -45,6 +36,5 @@ def test_get_account():
     app.dependency_overrides[AccountQueries] = FakeQueries
     response = client.get("/api/accounts")
     app.dependency_overrides = {}
-    print(response.json())
     assert response.status_code == 200
-    # assert response.json() == "make query result"
+    assert response.json() == fake_account()
