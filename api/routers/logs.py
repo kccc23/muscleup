@@ -4,8 +4,8 @@ from fastapi import (
     APIRouter,
 )
 from auth import authenticator
-from queries.logs import LogMealQueries, LogExerciseQueries
-from models import LogMealIn, LogMeal, LogExercise, LogExerciseIn
+from queries.logs import LogMealQueries, LogExerciseQueries, LogWeightQueries
+from models import LogMealIn, LogMeal, LogExercise, LogExerciseIn, LogWeight, LogWeightIn
 from typing import Optional
 from pydantic import BaseModel
 
@@ -66,7 +66,7 @@ async def delete_meal(
 
 ## Functions for exercise logs
 @router.get(
-    "/api/{account}/exercises", response_model=list[LogExercise] | dict
+    "/api/exercises", response_model=list[LogExercise] | dict
 )
 async def get_exercise_list(
     repo: LogExerciseQueries = Depends(),
@@ -80,7 +80,7 @@ async def get_exercise_list(
     return {"message": "exercise cannot be retrieved if not logged in"}
 
 
-@router.post("/api/{account}/exercises", response_model=LogExercise | dict)
+@router.post("/api/exercises", response_model=LogExercise | dict)
 async def create_exercise(
     info: LogExerciseIn,
     repo: LogExerciseQueries = Depends(),
@@ -101,7 +101,7 @@ async def create_exercise(
     return {"message": "exercise cannot be created if not logged in"}
 
 
-@router.delete("/api/{account}/exercises/{exercise_id}", response_model=dict)
+@router.delete("/api/exercises/{exercise_id}", response_model=dict)
 async def delete_exercise(
     exercise_id: str,
     repo: LogExerciseQueries = Depends(),
@@ -113,3 +113,28 @@ async def delete_exercise(
         message = repo.delete(exercise_id, account_data["email"])
         return message
     return {"message": "no account logged in"}
+
+@router.post("/api/weights", response_model=LogWeight | dict)
+async def create_weight(
+    info: LogWeightIn,
+    repo: LogWeightQueries = Depends(),
+    account_data: Optional[dict] = Depends(
+        authenticator.try_get_current_account_data
+    ),
+):
+    if account_data:
+        weight = repo.create(info, account_data)
+        return weight
+    return {"message": "weight cannot be created if not logged in"}
+
+@router.get("/api/weights", response_model=list[LogWeight] | dict)
+async def get_weights(
+    repo: LogWeightQueries = Depends(),
+    account_data: Optional[dict] = Depends(
+        authenticator.try_get_current_account_data
+    ),
+):
+    if account_data:
+        weights = repo.get_all(account_data["id"])
+        return weights
+    return {"message": "meal cannot be retrieved if not logged in"}

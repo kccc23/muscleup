@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useCreateMealMutation, useGetMealsQuery, useDeleteMealMutation } from "../../redux-elements/logMealApi";
+import { useCreateWeightMutation, useGetWeightsQuery, } from "../../redux-elements/logWeightApi";
+import { useUpdateWeightProfileMutation } from "../../redux-elements/profileApi";
 import Fab from "@mui/material/Fab";
 import { SiCookiecutter } from "react-icons/si";
 import { GiMuscleUp } from "react-icons/gi";
@@ -14,7 +16,7 @@ import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 
 
-function LogModal(showForm, setShowForm, form, setForm, createMutation) {
+function LogModal(showForm, setShowForm, form, setForm, createMutation, updateWeightProfile) {
     const fields = Object.keys(form);
 
     const handleFormChange = (e) => {
@@ -26,6 +28,7 @@ function LogModal(showForm, setShowForm, form, setForm, createMutation) {
     const handleSubmit = (e) => {
         e.preventDefault();
         createMutation(form);
+        updateWeightProfile(form);
         setShowForm(false);
     }
 
@@ -80,13 +83,21 @@ function Logs() {
         log_meal: "",
         meal_name: "",
     });
+    const [weightForm, setWeightForm]= useState({
+        log_weight: "",
+    })
 
     const [showMealForm, setShowMealForm] = useState(false);
     const [showExerciseForm, setShowExerciseForm] = useState(false);
     const [showWeightForm, setShowWeightForm] = useState(false);
 
+    const [ createWeight] = useCreateWeightMutation();
+    const { data : weights} = useGetWeightsQuery();
     const [ createMeal ] = useCreateMealMutation();
     const { data: meals } = useGetMealsQuery();
+    const [ updateWeightProfile, {isSuccess} ] = useUpdateWeightProfileMutation();
+
+
 
     const handleMealClick = () => {
         setShowMealForm(true);
@@ -95,6 +106,14 @@ function Logs() {
             meal_name: "",
         });
     }
+
+    const handleWeightClick = () => {
+        setShowWeightForm(true);
+        setWeightForm({
+            log_weight: "",
+        });
+    }
+    
 
     return (
         <>
@@ -107,12 +126,15 @@ function Logs() {
                 <Fab>
                     <GiMuscleUp style={{ fontSize: "2rem" }}/>
                 </Fab>
-                <Fab>
+                <Fab onClick = {handleWeightClick}>
                     <FaWeight style={{ fontSize: "2rem" }}/>
                 </Fab>
             </div>
             {showMealForm && (
                 LogModal(showMealForm, setShowMealForm, mealForm, setMealForm, createMeal)
+            )}
+            {showWeightForm && (
+                LogModal(showWeightForm, setShowWeightForm, weightForm, setWeightForm, createWeight, updateWeightProfile)
             )}
 
         </div>
