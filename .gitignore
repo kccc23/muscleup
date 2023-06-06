@@ -154,6 +154,10 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# gitlab-ci.yml
+.gitlab-ci.yml
+# hello
+
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
 #  be found at https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
@@ -182,3 +186,6 @@ cython_debug/
 **/*npm-debug.log*
 **/*yarn-debug.log*
 **/*yarn-error.log*
+
+
+```
