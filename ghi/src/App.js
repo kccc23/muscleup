@@ -10,8 +10,11 @@ import ProfileDashboard from "./components/dashboard/ProfileShow";
 
 
 function App() {
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
+
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Navbar />
       <div className="container">
         <Routes>
