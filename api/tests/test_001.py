@@ -24,11 +24,13 @@ class FakeQueries:
         return Account(id="123", username="user3000",
                        email="user3000@email.com",
                        first_name="User", last_name="3000",
-                       role="trainee", password="password", avatar="str")
+                       role="trainee", password="password",
+                       avatar="str")
 
 
 def fake_account():
-    return {"id": "123", "username": "user3000", "email": "user3000@email.com",
+    return {"id": "123", "username": "user3000",
+            "email": "user3000@email.com",
             "first_name": "User", "last_name": "3000", "role": "trainee",
             "password": "password", "avatar": "str"}
 
@@ -40,3 +42,4 @@ def test_get_account():
     response = client.get("/api/accounts")
     app.dependency_overrides = {}
     assert response.status_code == 200
+    assert response.json() == fake_account()
