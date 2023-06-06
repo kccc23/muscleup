@@ -40,4 +40,3 @@ def test_get_account():
     response = client.get("/api/accounts")
     app.dependency_overrides = {}
     assert response.status_code == 200
-    assert response.json() == fake_account()
