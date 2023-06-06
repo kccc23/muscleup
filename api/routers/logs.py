@@ -5,9 +5,11 @@ from fastapi import (
 )
 from auth import authenticator
 from queries.logs import LogMealQueries, LogExerciseQueries, LogWeightQueries
+from queries.trainees import TraineeQueries
 from models import LogMealIn, LogMeal, LogExercise, LogExerciseIn, LogWeight, LogWeightIn
 from typing import Optional
 from pydantic import BaseModel
+from datetime import date, datetime
 
 
 router = APIRouter()
@@ -21,7 +23,6 @@ class DeleteMealForm(BaseModel):
     meal_id: str
 
 
-# placeholder for an account identifier
 @router.post("/api/meals", response_model=LogMeal | dict)
 async def create_meal(
     info: LogMealIn,
@@ -64,7 +65,6 @@ async def delete_meal(
     return {"message": "no account logged in"}
 
 
-## Functions for exercise logs
 @router.get(
     "/api/exercises", response_model=list[LogExercise] | dict
 )
@@ -84,17 +84,25 @@ async def get_exercise_list(
 async def create_exercise(
     info: LogExerciseIn,
     repo: LogExerciseQueries = Depends(),
+    profile_repo: TraineeQueries = Depends(),
     account_data: Optional[dict] = Depends(
         authenticator.try_get_current_account_data
     ),
 ):
     if account_data:
+        trainee = profile_repo.get(account_data["id"])
+
+        today = date.today()
+        birth_date = datetime.strptime(trainee.date_of_birth, "%Y-%m-%d")
+        age = today.year - birth_date.year
+        if (today.month, today.day) < (birth_date.month, birth_date.day):
+            age -= 1
         exercise = get_exercises(
             info.log_exercise,
-            info.gender,
-            info.weight_kg,
-            info.height_cm,
-            info.age,
+            trainee.gender,
+            trainee.weight,
+            trainee.height,
+            age,
         )
         exercise_doc = repo.create(info, exercise, account_data)
         return exercise_doc
