@@ -46,7 +46,7 @@ export const mealApiSlice = createApi({
             async onQueryStarted(arg, { queryFulfilled }) {
                 try {
                     const response = await queryFulfilled;
-                    return {"message": "meal successfully deleted"}
+                    // return {"message": "meal successfully deleted"}
                 } catch (err) {
                     return err;
                 }

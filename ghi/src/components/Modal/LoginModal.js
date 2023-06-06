@@ -23,7 +23,7 @@ import CloseIcon from "@mui/icons-material/Close";
 function LogInModal() {
 	const { email, password } = useSelector((state) => state.account);
 	const dispatch = useDispatch();
-	const [logIn, { isSuccess }] = useLogInMutation();
+	const [logIn] = useLogInMutation();
 	const [logOut] = useLogOutMutation();
 	const navigate = useNavigate();
 	const [error, setError] = useState(false);
@@ -34,7 +34,8 @@ function LogInModal() {
 		[dispatch]
 	);
 
-	const handleLogIn = async () => {
+	const handleLogIn = async (e) => {
+		e.preventDefault();
 		const response = await logIn({ email: email, password: password });
 
 		if (response.data) {
@@ -121,7 +122,7 @@ function LogInModal() {
 					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={handleLogIn}>
 						Log in
 					</Button>
-					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={() => {logOut(); dispatch(authApiSlice.util.resetApiState());}}>
+					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={(e) => {e.preventDefault(); logOut(); dispatch(authApiSlice.util.resetApiState());}}>
 						Log out
 					</Button>
 					<Typography

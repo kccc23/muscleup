@@ -7,7 +7,7 @@ export const exerciseApiSlice = createApi({
     }),
     tagTypes: ["ExercisesList"],
     endpoints: (builder) => ({
-        getExercise: builder.query({
+        getExercises: builder.query({
             query: () => {
                 return {
                     url: "/api/exercises",
@@ -35,9 +35,9 @@ export const exerciseApiSlice = createApi({
             }
         }),
         deleteExercise: builder.mutation({
-            query: (exercise_id) => {
+            query: (exerciseId) => {
                 return {
-                    url: `/api/exercises/${exercise_id}`,
+                    url: `/api/exercises/${exerciseId}`,
                     method: "delete",
                     credentials: "include",
                 };
@@ -55,4 +55,4 @@ export const exerciseApiSlice = createApi({
     }),
 });
 
-export const { useGetExerciseQuery, useCreateExerciseMutation, useDeleteExerciseMutation } = exerciseApiSlice;
+export const { useGetExercisesQuery, useCreateExerciseMutation, useDeleteExerciseMutation } = exerciseApiSlice;

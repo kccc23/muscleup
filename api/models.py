@@ -102,15 +102,12 @@ class LogExercise(BaseModel):
 class LogExerciseIn(BaseModel):
     log_exercise: str
     exercise_name: str
-    gender: str
-    weight_kg: int
-    height_cm: int
-    age: int
 
 class LogExerciseOut(BaseModel):
     exercise_items: list
     exercise_name: str
     datetime: str
+
 
 class LogWeight(BaseModel):
     id: str

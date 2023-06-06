@@ -18,7 +18,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 function ProfileCreate() {
     const rangeFeet = [3,4,5,6,7]
     const rangeInches = [0,1,2,3,4,5,6,7,8,9,10,11]
-    const [createProfile, {isSuccess}] = useCreateProfileMutation();
+    const [createProfile] = useCreateProfileMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -47,7 +47,8 @@ function ProfileCreate() {
 
     const [error, setError] = useState(false);
 
-    const handleProfileCreate = async () => {
+    const handleProfileCreate = async (e) => {
+        e.preventDefault();
         const response = await createProfile({goal: goal,
             height_ft: height_ft,
             height_in: height_in,
@@ -58,11 +59,11 @@ function ProfileCreate() {
         })
 
         if (response.data) {
-			setError(false);
-			navigate("/dashboard");
-		} else {
-			setError(true);
-		}
+            setError(false);
+            navigate("/dashboard");
+        } else {
+            setError(true);
+        }
     }
 
     return (

@@ -39,7 +39,7 @@ def get_foods(log_meal):
     return meal
 
 
-def get_exercises(log_exercise, gender, weight_kg, height_cm, age):
+def get_exercises(log_exercise, gender, weight, height, age):
     headers = {
         "x-app-id": NUTRITIONIX_ID,
         "x-app-key": NUTRITIONIX_KEY,
@@ -47,6 +47,8 @@ def get_exercises(log_exercise, gender, weight_kg, height_cm, age):
         "Content-Type": "application/json"
     }
     url = f"{NUTRITIONIX_API_URL}/v2/natural/exercise"
+    weight_kg = weight * 0.453592
+    height_cm = height * 2.54
     data = {
         "query": log_exercise,
         "gender": gender,

@@ -1,12 +1,4 @@
-.create-profile {
-    display: flexbox
-}
-
-.has-profile {
-    display: none
-}
-
-.error-loading-nullData-div {
+.error-loading-null-div {
     display: flex;
     justify-content: center;
     height: 100vh;

@@ -6,7 +6,7 @@ export const profileApiSlice = createApi({
 	baseQuery: fetchBaseQuery({
 		baseUrl: process.env.REACT_APP_API_HOST,
 	}),
-	tagTypes: ["ProfileInformation", "Token", "Account"],
+	tagTypes: ["ProfileInformation"],
 	endpoints: (builder) => ({
 		getProfile: builder.query({
 			query: () => {
@@ -19,13 +19,11 @@ export const profileApiSlice = createApi({
 		}),
 		createProfile: builder.mutation({
 			query: (info) => {
-				info.weight = parseFloat(info.weight).toFixed(2);
-				info.goal_weight = parseFloat(info.goal_weight).toFixed(2);
+				info.weight = parseFloat(info.weight);
+				info.goal_weight = parseFloat(info.goal_weight);
 				info.height_ft = parseInt(info.height_ft);
 				info.height_in = parseInt(info.height_in);
-				info.height = Math.round((info.height_ft * 12 + info.height_in) * 2.54);
-				info.weight = (info.weight * 0.453592).toFixed(2);
-				info.goal_weight = (info.goal_weight * 0.453592).toFixed(2);
+				info.height = Math.round((info.height_ft * 12 + info.height_in));
 				delete info.height_ft;
 				delete info.height_in;
 				return {
@@ -39,22 +37,24 @@ export const profileApiSlice = createApi({
 				try {
 					const response = await queryFulfilled;
 					dispatch(clearForm());
-				} catch (err) {}
+				} catch (err) {
+					console.error("you got an error", err);
+				}
 			},
+			invalidatesTags: ["ProfileInformation"],
 		}),
 		updateWeightProfile: builder.mutation({
 			query: (info) => {
-				const weight = (info.log_weight * 0.453592).toFixed(2);
 				const weight_info = {
 					"goal" : "",
 					"height" : null,
-					"weight" : weight,
+					"weight" : info.log_weight,
 					"goal_weight": null,
 					"date_of_birth": "",
 					"gender" : "",
 				}
 				return {
-					url: "/api/trainee_profiles/",
+					url: "/api/trainee_profiles",
 					method : "put",
 					body : weight_info,
 					credentials : "include",
