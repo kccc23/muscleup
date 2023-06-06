@@ -1,6 +1,7 @@
 from .client import Queries
 from models import LogMeal, LogMealIn, LogExercise, LogExerciseIn, LogWeight, LogWeightIn
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from bson.objectid import ObjectId
 
 
@@ -17,11 +18,12 @@ class LogMealQueries(Queries):
         return meals
 
     def create(self, info: LogMealIn, meal, account_data) -> LogMeal:
+        ny_tz = ZoneInfo('America/New_York')
         props = info.dict()
         props["meal_items"] = meal
         props["account_id"] = account_data["id"]
         props["account_email"] = account_data["email"]
-        props["datetime"] = datetime.now().isoformat()
+        props["datetime"] = datetime.now(ny_tz).isoformat()
 
         self.collection.insert_one(props)
 
@@ -66,11 +68,12 @@ class LogExerciseQueries(Queries):
     def create(
         self, info: LogExerciseIn, exercise, account_data
     ) -> LogExercise:
+        ny_tz = ZoneInfo('America/New_York')
         props = info.dict()
         props["exercise_items"] = exercise
         props["account_id"] = account_data["id"]
         props["account_email"] = account_data["email"]
-        props["datetime"] = datetime.now().isoformat()
+        props["datetime"] = datetime.now(ny_tz).isoformat()
 
         self.collection.insert_one(props)
 
@@ -112,10 +115,11 @@ class LogWeightQueries(Queries):
         return weights
 
     def create(self, info: LogWeightIn, account_data) -> LogWeight:
+        ny_tz = ZoneInfo('America/New_York')
         props = info.dict()
         props["account_id"] = account_data["id"]
         props["account_email"] = account_data["email"]
-        props["datetime"] = datetime.now().isoformat()
+        props["datetime"] = datetime.now(ny_tz).isoformat()
 
         self.collection.insert_one(props)
 

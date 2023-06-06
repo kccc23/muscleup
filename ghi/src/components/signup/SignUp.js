@@ -2,10 +2,6 @@ import "./signup.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useSignUpMutation } from "../../redux-elements/authApi";
 import { updateField } from "../../redux-elements/accountSlice";
-import {
-  eventTargetSelector as target,
-  preventDefault,
-} from "../../redux-elements/utils";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import * as React from "react";
@@ -97,7 +93,8 @@ function SignUp() {
       </form>
       <Button
         sx={{ mt: 1 /* margin top */ }}
-        onClick={() =>
+        onClick={(e) =>{
+          e.preventDefault();
           signUp({
             username: username,
             email: email,
@@ -105,7 +102,7 @@ function SignUp() {
             first_name: first_name,
             last_name: last_name,
           })
-        }
+        }}
       >
         Sign Up
       </Button>
