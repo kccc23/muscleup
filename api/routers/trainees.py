@@ -6,7 +6,10 @@ from fastapi import (
 )
 
 from auth import authenticator
-from queries.trainees import TraineeQueries, DuplicateTraineeError, NoProfileError
+from queries.trainees import (
+    TraineeQueries,
+    DuplicateTraineeError,
+    NoProfileError)
 from models import (
     TraineeProfileIn,
     TraineeProfileOut,

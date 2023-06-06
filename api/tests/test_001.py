@@ -2,11 +2,11 @@ from pydantic import BaseModel
 from auth import authenticator
 from main import app
 from fastapi.testclient import TestClient
-from models import Account
 from queries.accounts import AccountQueries
 
 
 client = TestClient(app)
+
 
 class Account(BaseModel):
     id: str
@@ -21,15 +21,17 @@ class Account(BaseModel):
 
 class FakeQueries:
     def get(self, email):
-        props = "make query result"
-        return Account(id="123", username="user3000", email="user3000@email.com",
+        return Account(id="123", username="user3000",
+                       email="user3000@email.com",
                        first_name="User", last_name="3000", role="trainee",
-                         password="password", avatar="str")
+                        password="password", avatar="str")
+
 
 def fake_account():
-    return {"id":"123", "username":"user3000", "email":"user3000@email.com",
-                       "first_name":"User", "last_name":"3000", "role":"trainee",
-                         "password":"password", "avatar":"str"}
+    return {"id": "123", "username": "user3000", "email": "user3000@email.com",
+            "first_name": "User", "last_name": "3000", "role": "trainee",
+            "password": "password", "avatar": "str"}
+
 
 def test_get_account():
     app.dependency_overrides[authenticator.try_get_current_account_data] = fake_account

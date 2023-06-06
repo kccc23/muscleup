@@ -10,6 +10,7 @@ from models import (
 class DuplicateTraineeError(ValueError):
     pass
 
+
 class NoProfileError(ValueError):
     pass
 
@@ -49,7 +50,7 @@ class TraineeQueries(Queries):
         except TypeError:
             raise NoProfileError()
         for k, v in info.dict().items():
-            if v == None or v == "":
+            if v is None or v == "":
                 pass
             else:
                 props[k] = v
@@ -67,7 +68,7 @@ class TraineeQueries(Queries):
                 }
             },
         )
-        
+
         return TraineeProfileOut(**props)
 
     def delete(self, account_email) -> dict:
@@ -76,5 +77,3 @@ class TraineeQueries(Queries):
             return {"message": "profile deleted successfully"}
         else:
             return {"message": "profile deletion failed"}
-        
-
