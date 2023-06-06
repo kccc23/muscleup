@@ -15,8 +15,6 @@ lint-test-job:
 api-unit-tests-job:
   image: python:3-bullseye
   stage: test
-  needs:
-    - lint-test-job
   script:
     - cd api
     - pip install -r requirements.txt
@@ -27,6 +25,7 @@ build-front-end-job:
   stage: build
   image: node:lts-bullseye
   needs:
+    - api-unit-tests-job
     - lint-test-job
   variables:
     # If either of these variables is defined in the GitLab
