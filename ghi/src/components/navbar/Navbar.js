@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import { ImHome, ImMenu } from "react-icons/im";
 import React, { useState, useEffect } from "react";
 import { useGetTokenQuery } from "../../redux-elements/authApi";
+import Avatar from '@mui/joy/Avatar';
+
+
 
 function Navbar() {
 	const [sideBar, setSideBar] = useState(false);
@@ -40,12 +43,7 @@ function Navbar() {
 							<>
 								<li className="navbar-item">
 									<NavLink className="navbar-link" to="">
-										CSS
-									</NavLink>
-								</li>
-								<li className="navbar-item">
-									<NavLink className="navbar-link" to="/login">
-										SUCKS!!!!
+										Trainers
 									</NavLink>
 								</li>
 							</>
@@ -66,9 +64,9 @@ function Navbar() {
 					</ul>
 				</div>
 				{data ? (
-					<div className="navbar-button">
-						<NavLink className="navbar-link" to="/signup">
-							I'M LOGGED IN!!!!!!!!!!!!
+					<div className="navbar-profile">
+						<NavLink className="navbar-link" to="/dashboard">
+							<Avatar className="avatar" variant="solid" src=""/>
 						</NavLink>
 					</div>
 				) : (
