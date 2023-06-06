@@ -3,7 +3,6 @@ from auth import authenticator
 from main import app
 from fastapi.testclient import TestClient
 from queries.accounts import AccountQueries
-from queries.client import MONGO_URL
 
 
 client = TestClient(app)
