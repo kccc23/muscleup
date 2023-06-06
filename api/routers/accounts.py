@@ -69,7 +69,7 @@ async def get_current_account_info(
     return {"message": "no account logged in"}
 
 
-@router.put("/api/accounts/{email}", response_model=Account | dict)
+@router.put("/api/accounts", response_model=Account | dict)
 async def update_account_info(
     info: AccountUpdateForm,
     account_data: Optional[dict] = Depends(
