@@ -15,6 +15,33 @@ export const authApiSlice = createApi({
 			}),
 			providesTags: ["Token"],
 		}),
+		updateAvatar: builder.mutation({
+			query: (info) => {
+				const avatar_info = {
+					"username" : "",
+					"first_name" : "",
+					"last_name" : "",
+					"avatar": info.avatar_url,
+				}
+				return {
+					url: "/api/accounts",
+					method : "put",
+					body : avatar_info,
+					credentials : "include",
+
+				}
+			},
+			invalidatesTags: ["Token"],
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					const response = await queryFulfilled;
+					dispatch(clearForm());
+				} catch (err) {}
+			},
+
+		}
+
+		),
 		logIn: builder.mutation({
 			query: (info) => {
 				let formData = null;
@@ -72,4 +99,4 @@ export const authApiSlice = createApi({
 	}),
 });
 
-export const { useGetTokenQuery, useLogInMutation, useLogOutMutation, useSignUpMutation } = authApiSlice;
+export const { useGetTokenQuery, useLogInMutation, useLogOutMutation, useSignUpMutation, useUpdateAvatarMutation } = authApiSlice;
