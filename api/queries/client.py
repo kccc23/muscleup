@@ -2,7 +2,8 @@ import os
 import pymongo
 
 
-client = pymongo.MongoClient("mongodb://root:password@mongo")
+MONGO_URL = os.environ["MONGO_URL"]
+client = pymongo.MongoClient(MONGO_URL)
 
 
 class Queries:
