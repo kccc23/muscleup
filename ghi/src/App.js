@@ -19,11 +19,10 @@ function App() {
       <div className="container">
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/login" element={<LogInModal />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profileform" element={<ProfileCreate />} />
           <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/profile" element={<ProfileDashboard />} />
+          <Route path="/profile" element={<ProfileDashboard />} />
         </Routes>
       </div>
     </BrowserRouter>
