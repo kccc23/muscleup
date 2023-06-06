@@ -6,11 +6,15 @@ WORKDIR /app
 # Modify these instructions to do that
 COPY requirements.txt requirements.txt
 COPY main.py main.py
+COPY auth.py auth.py
+COPY models.py models.py
+COPY nutritionix_call.py nutritionix_call.py
+
 
 # Copy all of the subdirectories in your service's directory
 # Modify these instructions to do that
-# COPY queries queries
-# COPY routers routers
+COPY queries queries
+COPY routers routers
 
 RUN python -m pip install -r requirements.txt
 
