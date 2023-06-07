@@ -1,0 +1,120 @@
+
+.img-container {
+    background-image: url("https://cdn.pixabay.com/photo/2018/03/06/03/56/cyclist-3202481_640.jpg");
+    min-height: 520px;
+    width: 100vw;
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-img-background {
+    display: flex;
+    align-content: center;
+    max-width: 1260px;
+}
+
+@media (min-width: 768px){
+    .img-container {
+        background-image: url("https://cdn.pixabay.com/photo/2018/03/06/03/56/cyclist-3202481_640.jpg");
+        min-height: 632px;
+        width: 100vw;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+@media (min-width: 1200px){
+    .img-container {
+        background-image: url("https://cdn.pixabay.com/photo/2018/03/06/03/56/cyclist-3202481_640.jpg");
+        min-height: 724px;
+        width: 100vw;
+        background-size: 100% 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+}
+
+.hero-p-tag {
+        display: flex;
+        font-size: 20px;
+        font-style: bold;
+        padding-left: 5rem;
+        padding-top: 5rem;
+        color: #fff;
+}
+
+.hero-sign-up {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-style: bold;
+        border-radius: 1rem;
+        margin-left: 5rem;
+        margin-right: 58rem;
+        justify-content: center;
+        text-align: center;
+        padding: .5rem .5rem;
+        text-decoration: none;
+        color: #fff;
+        background-color: #297373;
+        width: 120px;
+}
+
+
+@media (min-width: 768px){
+    .hero-p-tag {
+        display: flex;
+        font-size: 20px;
+        font-style: bold;
+        padding-left: 5rem;
+        padding-top: 7rem;
+        color: #fff;
+    }
+
+    .hero-sign-up {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-style: bold;
+        border-radius: 1rem;
+        margin-left: 5rem;
+        margin-right: 58rem;
+        justify-content: center;
+        text-align: center;
+        padding: .5rem .5rem;
+        text-decoration: none;
+        color: #fff;
+        background-color: #297373;
+        width: 120px;
+    }
+}
+
+@media (min-width: 1200px){
+    .hero-p-tag {
+        display: flex;
+        font-size: 20px;
+        font-style: bold;
+        padding-left: 5rem;
+        padding-top: 16rem;
+        color: #fff;
+}
+
+.hero-sign-up {
+        display: flex;
+        align-items: center;
+        font-size: 20px;
+        font-style: bold;
+        border-radius: 1rem;
+        margin-left: 5rem;
+        margin-right: 58rem;
+        justify-content: center;
+        text-align: center;
+        padding: .5rem .5rem;
+        text-decoration: none;
+        color: #fff;
+        background-color: #297373;
+        width: 120px;
+}
+}
