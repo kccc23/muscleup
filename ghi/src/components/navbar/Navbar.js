@@ -60,6 +60,7 @@ function Navbar() {
 
 	return (
 		<nav className="navbar">
+			<div className="navbar-content">
 			<div className="navbar-container-image">
 				<NavLink className="navbar-title" to="/">
 					MUSCLE UP
@@ -189,6 +190,7 @@ function Navbar() {
 					onClick={toggleLogInModal}
 					style={logInModal ? { opacity: "100%" } : { opacity: "0%", pointerEvents: "none" }}
 				></div>
+			</div>
 			</div>
 		</nav>
 	);
