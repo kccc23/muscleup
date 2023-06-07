@@ -3,6 +3,8 @@ stages:
     - build
     - deploy
 
+services:
+    - docker:dind
 # Run flake8 to check for code quality
 lint-test-job:
     image: python:3-bullseye
@@ -61,8 +63,6 @@ pages:
 build-muscle-up-image:
     stage: build
     image: docker:git
-    services:
-        - docker:dind
     variables:
         GITLAB_IMAGE: ${CI_REGISTRY_IMAGE}/api
     before_script:
