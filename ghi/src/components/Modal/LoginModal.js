@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { authApiSlice } from "../../redux-elements/authApi";
-import { useLogInMutation, useLogOutMutation } from "../../redux-elements/authApi";
+import { useLogInMutation } from "../../redux-elements/authApi";
 import { updateField } from "../../redux-elements/accountSlice";
 import { useCallback, useState } from "react";
 import * as React from "react";
@@ -19,21 +18,14 @@ import IconButton from "@mui/joy/IconButton";
 import WarningIcon from "@mui/icons-material/Warning";
 import CloseIcon from "@mui/icons-material/Close";
 
-
 function LogInModal({ toggleLogInModal }) {
 	const { email, password } = useSelector((state) => state.account);
 	const dispatch = useDispatch();
 	const [logIn] = useLogInMutation();
-	const [logOut] = useLogOutMutation();
 	const navigate = useNavigate();
 	const [error, setError] = useState(false);
 
-
-	const field = useCallback(
-    (e) =>
-		dispatch(updateField({ field: e.target.name, value: e.target.value })),
-		[dispatch]
-	);
+	const field = useCallback((e) => dispatch(updateField({ field: e.target.name, value: e.target.value })), [dispatch]);
 
 	const handleLogIn = async (e) => {
 		e.preventDefault();
@@ -101,34 +93,16 @@ function LogInModal({ toggleLogInModal }) {
 					)}
 					<FormControl>
 						<FormLabel>Email</FormLabel>
-						<Input
-							required
-							onChange={field}
-							value={email}
-							name="email"
-							type="email"
-							placeholder="johndoe@email.com"
-						/>
+						<Input required onChange={field} value={email} name="email" type="email" placeholder="johndoe@email.com" />
 					</FormControl>
 					<FormControl>
 						<FormLabel>Password</FormLabel>
-						<Input
-							required
-							onChange={field}
-							value={password}
-							name="password"
-							type="password"
-							placeholder="password"
-						/>
+						<Input required onChange={field} value={password} name="password" type="password" placeholder="password" />
 					</FormControl>
 					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={handleLogIn}>
 						Log in
 					</Button>
-					<Typography
-						endDecorator={<Link href="/signup">Sign up</Link>}
-						fontSize="sm"
-						sx={{ alignSelf: "center" }}
-					>
+					<Typography endDecorator={<Link href="/signup">Sign up</Link>} fontSize="sm" sx={{ alignSelf: "center" }}>
 						Don&apos;t have an account?
 					</Typography>
 				</Sheet>
