@@ -190,9 +190,8 @@ function Logs() {
 										</div>
 									</div>
 								);
-							} else {
-								<></>
 							}
+							return null;
 						})}
 					</div>
 				) : null}
@@ -232,9 +231,8 @@ function Logs() {
 										</div>
 									</div>
 								);
-							} else {
-								<></>
 							}
+							return null;
 						})}
 					</div>
 				) : null}
