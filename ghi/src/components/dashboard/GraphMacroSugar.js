@@ -77,18 +77,7 @@ function GraphMacroSugar() {
 		grid: { rows: 1, columns: 2 },
 	};
 
-    return (
-        <div>
-            {mealsLoading ? (
-                <>Loading...</>
-            ) : meals ? (
-                <Plot
-                    data={data}
-                    layout={layout}
-                />
-            ) : null}
-        </div>
-    )
+	return <div>{mealsLoading ? <>Loading...</> : meals ? <Plot data={data} layout={layout} /> : null}</div>;
 }
 
 export default GraphMacroSugar;
