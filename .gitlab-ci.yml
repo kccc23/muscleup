@@ -75,12 +75,12 @@ build-muscle-up-image:
         - main
 
 deploy-user-image:
-  stage: deploy
-  image: registry.gitlab.com/galvanize-inc/foss/glv-cloud-cli:latest
-  script:
-    - glv-cloud-cli reset -a ${USER_API} -t ${CIRRUS_TOKEN}
-  only:
-    - main
+    stage: deploy
+    image: registry.gitlab.com/galvanize-inc/foss/glv-cloud-cli:latest
+    script:
+        - glv-cloud-cli reset -a ${MUSCLE_UP_API} -t ${CIRRUS_TOKEN}
+    only:
+        - main
 # Build Sample Service:
 # build-back-end-job:
 #   image: docker:20-dind
