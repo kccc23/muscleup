@@ -3,11 +3,13 @@ import Plot from 'react-plotly.js';
 import { useGetMealsQuery } from '../../redux-elements/logMealApi';
 import { useGetExercisesQuery } from '../../redux-elements/logExerciseApi';
 import { useGetWeightsQuery } from '../../redux-elements/logWeightApi';
+import { useGetProfileQuery } from '../../redux-elements/profileApi';
 
 function GraphWeightCalories() {
     const { data: meals, isLoading: mealsLoading } = useGetMealsQuery();
     const { data: exercises, isLoading: exercisesLoading } = useGetExercisesQuery();
     const { data: weights, isLoading: weightsLoading } = useGetWeightsQuery();
+    const { data: profile, isLoading: profileLoading } = useGetProfileQuery();
 
     const xAxis = [6,5,4,3,2,1,0];
     const xDateAxis = xAxis.map(x => {
@@ -94,6 +96,33 @@ function GraphWeightCalories() {
         }
     }
 
+    const yGoalWeightAxis = [0, 0, 0, 0, 0, 0, 0];
+    const yDailyCaloriesGoal = [0, 0, 0, 0, 0, 0, 0];
+    let dailyCaloriesGoal = 0;
+    if (profile) {
+        const today = new Date();
+        const birthDate = new Date(profile.date_of_birth);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const month = today.getMonth() - birthDate.getMonth();
+        if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        if (profile.gender === "Male") {
+            dailyCaloriesGoal = ((88.4 + 13.4 * profile.weight * 0.453592) + (4.8 * profile.height * 2.54) - (5.68 * age)) * 1.2
+        } else {
+            dailyCaloriesGoal = ((447.6 + 9.25 * profile.weight * 0.453592) + (3.10 * profile.height * 2.54) - (4.33 * age)) * 1.2
+        }
+        for (let i=0; i<yGoalWeightAxis.length; i++) {
+            yGoalWeightAxis[i] = profile.goal_weight;
+            yDailyCaloriesGoal[i] = dailyCaloriesGoal;
+        }
+    }
+
+    const yDailyCalories = [];
+    for (let i=0; i<7; i++) {
+        yDailyCalories.push(yMealAxis[i] - yExerciseAxis[i]);
+    }
+    console.log(profile)
     const mealTrace = {
         x: xDateAxis,
         y: yMealAxis,
@@ -116,6 +145,28 @@ function GraphWeightCalories() {
             width: 3
         }
     };
+    const dailyCaloriesTrace = {
+        x: xDateAxis,
+        y: yDailyCalories,
+        type: "scatter",
+        mode: "lines",
+        name: "Daily Calories Total",
+        line: {
+            dash: 'dashdot',
+            width: 3,
+        },
+    };
+    const dailyCaloriesGoalTrace = {
+        x: xDateAxis,
+        y: yDailyCaloriesGoal,
+        type: "scatter",
+        mode: "lines",
+        name: "Daily Calories Goal",
+        line: {
+            dash: 'dashdot',
+            width: 3,
+        },
+    };
     const weightTrace = {
         x: xDateAxis,
         y: yWeightAxis,
@@ -127,7 +178,19 @@ function GraphWeightCalories() {
             width: 3
         }
     };
-    const caloriesData = [mealTrace, exerciseTrace];
+    const goalWeightTrace = {
+        x: xDateAxis,
+        y: yGoalWeightAxis,
+        type: "scatter",
+        mode: "lines",
+        name: 'Goal Weight',
+        line: {
+            dash: 'dashdot',
+            width: 3
+        }
+    };
+
+    const caloriesData = [mealTrace, exerciseTrace, dailyCaloriesTrace, dailyCaloriesGoalTrace];
     const caloriesLayout = {
         title: "Calories of Food Intake and Exercise",
         xaxis: {
@@ -140,7 +203,7 @@ function GraphWeightCalories() {
         }
     };
 
-    const weightsData = [weightTrace];
+    const weightsData = [weightTrace, goalWeightTrace];
     const weightsLayout = {
         title: "Weight in lbs",
         xaxis: {
@@ -168,7 +231,7 @@ function GraphWeightCalories() {
             ) : null}
         </div>
         <div>
-            {weightsLoading ? (
+            {(weightsLoading || profileLoading) ? (
                 <>Loading...</>
             ): weights ? (
                 <div>

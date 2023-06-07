@@ -30,7 +30,7 @@ function GraphMacroSugar() {
     sugarAndOther[0] = parseFloat(sugarAndOther[0].toFixed(2));
     sugarAndOther[1] = parseFloat(sugarAndOther[1].toFixed(2));
 
-    var data = [
+    const data = [
     {
         values: proFatCarb,
         labels: [
@@ -58,7 +58,7 @@ function GraphMacroSugar() {
     },
     ];
 
-    var layout = {
+    const layout = {
     title: "Daily Macro and Sugar Intake",
     annotations: [
         {
@@ -82,6 +82,7 @@ function GraphMacroSugar() {
     ],
     grid: { rows: 1, columns: 2 },
     };
+
     return (
         <div>
             <Plot

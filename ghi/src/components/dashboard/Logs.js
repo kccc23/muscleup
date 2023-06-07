@@ -156,11 +156,11 @@ function Logs() {
             {showMealForm && (
                 LogModal(showMealForm, setShowMealForm, mealForm, setMealForm, createMeal)
             )}
-            {showWeightForm && (
-                LogModal(showWeightForm, setShowWeightForm, weightForm, setWeightForm, createWeight, updateWeightProfile)
-            )}
             {showExerciseForm && (
                 LogModal(showExerciseForm, setShowExerciseForm, exerciseForm, setExerciseForm, createExercise)
+            )}
+            {showWeightForm && (
+                LogModal(showWeightForm, setShowWeightForm, weightForm, setWeightForm, createWeight, updateWeightProfile)
             )}
         </div>
         <div style={{ marginTop: '1rem'}}>
