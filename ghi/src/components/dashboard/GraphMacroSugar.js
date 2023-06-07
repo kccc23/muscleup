@@ -3,7 +3,7 @@ import Plot from "react-plotly.js";
 import { useGetMealsQuery } from "../../redux-elements/logMealApi";
 
 function GraphMacroSugar() {
-	const { data: meals } = useGetMealsQuery();
+	const { data: meals, isLoading: mealsLoading } = useGetMealsQuery();
 
 	if (meals) {
 		var mealToday = meals.filter((meal) => {
@@ -77,18 +77,7 @@ function GraphMacroSugar() {
 		grid: { rows: 1, columns: 2 },
 	};
 
-    return (
-        <div>
-            {mealsLoading ? (
-                <>Loading...</>
-            ) : meals ? (
-                <Plot
-                    data={data}
-                    layout={layout}
-                />
-            ) : null}
-        </div>
-    )
+	return <div>{mealsLoading ? <>Loading...</> : meals ? <Plot data={data} layout={layout} /> : null}</div>;
 }
 
 export default GraphMacroSugar;
