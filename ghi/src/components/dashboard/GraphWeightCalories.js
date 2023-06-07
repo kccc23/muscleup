@@ -122,7 +122,7 @@ function GraphWeightCalories() {
     for (let i=0; i<7; i++) {
         yDailyCalories.push(yMealAxis[i] - yExerciseAxis[i]);
     }
-    console.log(profile)
+
     const mealTrace = {
         x: xDateAxis,
         y: yMealAxis,

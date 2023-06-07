@@ -85,10 +85,14 @@ function GraphMacroSugar() {
 
     return (
         <div>
-            <Plot
-                data={data}
-                layout={layout}
-            />
+            {mealsLoading ? (
+                <>Loading...</>
+            ) : meals ? (
+                <Plot
+                    data={data}
+                    layout={layout}
+                />
+            ) : null}
         </div>
     )
 }
