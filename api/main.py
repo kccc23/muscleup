@@ -14,6 +14,12 @@ origins = [
     os.environ.get("CORS_HOST", None),
 ]
 
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
