@@ -95,7 +95,7 @@ function ProfileDashboard() {
     }
 
 
-    
+
 
     return (
         <div>
@@ -110,7 +110,7 @@ function ProfileDashboard() {
                 AvatarModal(showAvatarForm, setShowAvatarForm, avatarForm, setAvatarForm, updateAvatar)
             )}
         </div>
-        
+
     );
 }
 
