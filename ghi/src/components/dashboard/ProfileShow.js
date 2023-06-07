@@ -10,7 +10,7 @@ function ProfileDashboard() {
 
     return (
         <div>
-            <p>Your goals are {profile?.goal}, your current weight is {profile?.weight} your goal weight is {profile?.goal_weight}</p>
+            <p>Your goals are {profile?.goal}. Your current weight is {profile?.weight} lbs. Your goal weight is {profile?.goal_weight} lbs</p>
         </div>
     );
 }

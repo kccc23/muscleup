@@ -1,7 +1,7 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCreateMealMutation, useGetMealsQuery, useDeleteMealMutation } from "../../redux-elements/logMealApi";
-import { useCreateWeightMutation, useGetWeightsQuery, } from "../../redux-elements/logWeightApi";
+import { useCreateWeightMutation } from "../../redux-elements/logWeightApi";
 import { useUpdateWeightProfileMutation } from "../../redux-elements/profileApi";
 import { useCreateExerciseMutation, useGetExercisesQuery, useDeleteExerciseMutation } from "../../redux-elements/logExerciseApi";
 import Fab from "@mui/material/Fab";
