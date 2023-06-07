@@ -61,6 +61,8 @@ pages:
 build-muscle-up-image:
   stage: build
   image: docker:git
+  services:
+    - docker:dind
   variables:
     GITLAB_IMAGE: ${CI_REGISTRY_IMAGE}/muscle_up_image
   before_script:
