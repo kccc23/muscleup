@@ -40,7 +40,7 @@ class AccountQueries(Queries):
         props = self.collection.find_one({"email": account_email})
         props["id"] = str(props["_id"])
         for k, v in info.dict().items():
-            if v == None or v == "":
+            if v is None or v == "":
                 pass
             else:
                 props[k] = v

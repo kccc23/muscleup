@@ -12,7 +12,7 @@ def get_foods(log_meal):
         "x-app-id": NUTRITIONIX_ID,
         "x-app-key": NUTRITIONIX_KEY,
         "x-remote-user-id": "0",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
     url = f"{NUTRITIONIX_API_URL}/v2/natural/nutrients"
     data = {
@@ -44,7 +44,7 @@ def get_exercises(log_exercise, gender, weight, height, age):
         "x-app-id": NUTRITIONIX_ID,
         "x-app-key": NUTRITIONIX_KEY,
         "x-remote-user-id": "0",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
     url = f"{NUTRITIONIX_API_URL}/v2/natural/exercise"
     weight_kg = weight * 0.453592
@@ -54,11 +54,10 @@ def get_exercises(log_exercise, gender, weight, height, age):
         "gender": gender,
         "weight_kg": weight_kg,
         "height_cm": height_cm,
-        "age": age
+        "age": age,
     }
     response = requests.post(url, headers=headers, data=json.dumps(data))
     content = json.loads(response.content)
-
     exercises = []
     for item in content["exercises"]:
         exercise = {}

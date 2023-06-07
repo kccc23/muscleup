@@ -29,7 +29,7 @@ function Dashboard() {
             <div className="error-loading-null-div">
                 <h3>
                     Please{' '}
-                    <Link to="/login">Login</Link> or <Link to="/signup">Sign up</Link> to access the dashboard
+                    Login or <Link to="/signup">Sign up</Link> to access the dashboard
                 </h3>
             </div>
         );

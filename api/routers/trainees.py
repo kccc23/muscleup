@@ -6,7 +6,10 @@ from fastapi import (
 )
 
 from auth import authenticator
-from queries.trainees import TraineeQueries, DuplicateTraineeError, NoProfileError
+from queries.trainees import (
+    TraineeQueries,
+    DuplicateTraineeError,
+    NoProfileError)
 from models import (
     TraineeProfileIn,
     TraineeProfileOut,
@@ -38,7 +41,7 @@ async def create_trainee_profile(
         # check = repo.get(account_data["id"])
         # if check:
         #     return {
-        #         "message": "profile already exists, aborting profile creation"
+        #         "message": "profile already exists, aborting  creation"
         #     }
         # create profile
         try:

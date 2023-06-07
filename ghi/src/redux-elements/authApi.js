@@ -15,6 +15,29 @@ export const authApiSlice = createApi({
 			}),
 			providesTags: ["Token"],
 		}),
+		updateAvatar: builder.mutation({
+			query: (info) => {
+				const avatar_info = {
+					username: "",
+					first_name: "",
+					last_name: "",
+					avatar: info.avatar_url,
+				};
+				return {
+					url: "/api/accounts",
+					method: "put",
+					body: avatar_info,
+					credentials: "include",
+				};
+			},
+			invalidatesTags: ["Token"],
+			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+				try {
+					await queryFulfilled;
+					dispatch(clearForm());
+				} catch (err) {}
+			},
+		}),
 		logIn: builder.mutation({
 			query: (info) => {
 				let formData = null;
@@ -35,7 +58,7 @@ export const authApiSlice = createApi({
 			invalidateTags: ["Token"],
 			async onQueryStarted(arg, { dispatch, queryFulfilled, query }) {
 				try {
-					const response = await queryFulfilled;
+					await queryFulfilled;
 					dispatch(clearForm());
 				} catch (err) {
 					return err;
@@ -62,7 +85,7 @@ export const authApiSlice = createApi({
 			invalidateTags: ["Token"],
 			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
 				try {
-					const response = await queryFulfilled;
+					await queryFulfilled;
 					dispatch(clearForm());
 				} catch (err) {
 					console.error("you got an error", err);
@@ -72,4 +95,10 @@ export const authApiSlice = createApi({
 	}),
 });
 
-export const { useGetTokenQuery, useLogInMutation, useLogOutMutation, useSignUpMutation } = authApiSlice;
+export const {
+	useGetTokenQuery,
+	useLogInMutation,
+	useLogOutMutation,
+	useSignUpMutation,
+	useUpdateAvatarMutation,
+} = authApiSlice;

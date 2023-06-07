@@ -1,5 +1,6 @@
 from .client import Queries
-from models import LogMeal, LogMealIn, LogExercise, LogExerciseIn, LogWeight, LogWeightIn
+from models import (LogMeal, LogMealIn, LogExercise,
+                    LogExerciseIn, LogWeight, LogWeightIn)
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from bson.objectid import ObjectId
@@ -101,6 +102,7 @@ class LogExerciseQueries(Queries):
             return {"message": f"{status.deleted_count} exercise logs deleted"}
         else:
             return {"message": "exercise deletion failed"}
+
 
 class LogWeightQueries(Queries):
     DB_NAME = "muscleup"

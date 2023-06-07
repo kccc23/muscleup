@@ -23,7 +23,7 @@ export const profileApiSlice = createApi({
 				info.goal_weight = parseFloat(info.goal_weight);
 				info.height_ft = parseInt(info.height_ft);
 				info.height_in = parseInt(info.height_in);
-				info.height = Math.round((info.height_ft * 12 + info.height_in));
+				info.height = Math.round(info.height_ft * 12 + info.height_in);
 				delete info.height_ft;
 				delete info.height_in;
 				return {
@@ -35,7 +35,7 @@ export const profileApiSlice = createApi({
 			},
 			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
 				try {
-					const response = await queryFulfilled;
+					await queryFulfilled;
 					dispatch(clearForm());
 				} catch (err) {
 					console.error("you got an error", err);
@@ -46,33 +46,33 @@ export const profileApiSlice = createApi({
 		updateWeightProfile: builder.mutation({
 			query: (info) => {
 				const weight_info = {
-					"goal" : "",
-					"height" : null,
-					"weight" : info.log_weight,
-					"goal_weight": null,
-					"date_of_birth": "",
-					"gender" : "",
-				}
+					goal: "",
+					height: null,
+					weight: info.log_weight,
+					goal_weight: null,
+					date_of_birth: "",
+					gender: "",
+				};
 				return {
 					url: "/api/trainee_profiles",
-					method : "put",
-					body : weight_info,
-					credentials : "include",
-
-				}
+					method: "put",
+					body: weight_info,
+					credentials: "include",
+				};
 			},
 			invalidatesTags: ["ProfileInformation"],
 			async onQueryStarted(arg, { dispatch, queryFulfilled }) {
 				try {
-					const response = await queryFulfilled;
+					await queryFulfilled;
 					dispatch(clearForm());
 				} catch (err) {}
 			},
-
-		}
-
-		)
+		}),
 	}),
 });
 
-export const { useCreateProfileMutation, useGetProfileQuery, useUpdateWeightProfileMutation } = profileApiSlice;
+export const {
+	useCreateProfileMutation,
+	useGetProfileQuery,
+	useUpdateWeightProfileMutation,
+} = profileApiSlice;

@@ -6,7 +6,8 @@ from fastapi import (
 from auth import authenticator
 from queries.logs import LogMealQueries, LogExerciseQueries, LogWeightQueries
 from queries.trainees import TraineeQueries
-from models import LogMealIn, LogMeal, LogExercise, LogExerciseIn, LogWeight, LogWeightIn
+from models import (LogMealIn, LogMeal, LogExercise, LogExerciseIn,
+                    LogWeight, LogWeightIn)
 from typing import Optional
 from pydantic import BaseModel
 from datetime import date, datetime
@@ -122,6 +123,7 @@ async def delete_exercise(
         return message
     return {"message": "no account logged in"}
 
+
 @router.post("/api/weights", response_model=LogWeight | dict)
 async def create_weight(
     info: LogWeightIn,
@@ -134,6 +136,7 @@ async def create_weight(
         weight = repo.create(info, account_data)
         return weight
     return {"message": "weight cannot be created if not logged in"}
+
 
 @router.get("/api/weights", response_model=list[LogWeight] | dict)
 async def get_weights(

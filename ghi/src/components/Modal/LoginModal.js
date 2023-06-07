@@ -20,13 +20,14 @@ import WarningIcon from "@mui/icons-material/Warning";
 import CloseIcon from "@mui/icons-material/Close";
 
 
-function LogInModal() {
+function LogInModal({ toggleLogInModal }) {
 	const { email, password } = useSelector((state) => state.account);
 	const dispatch = useDispatch();
 	const [logIn] = useLogInMutation();
 	const [logOut] = useLogOutMutation();
 	const navigate = useNavigate();
 	const [error, setError] = useState(false);
+
 
 	const field = useCallback(
     (e) =>
@@ -40,6 +41,7 @@ function LogInModal() {
 
 		if (response.data) {
 			setError(false);
+			toggleLogInModal();
 			navigate("/dashboard");
 		} else {
 			setError(true);
@@ -121,9 +123,6 @@ function LogInModal() {
 					</FormControl>
 					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={handleLogIn}>
 						Log in
-					</Button>
-					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={(e) => {e.preventDefault(); logOut(); dispatch(authApiSlice.util.resetApiState());}}>
-						Log out
 					</Button>
 					<Typography
 						endDecorator={<Link href="/signup">Sign up</Link>}
