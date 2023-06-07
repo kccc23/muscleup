@@ -44,7 +44,7 @@ function SignUp() {
     } catch (err) {
       console.error(err);
     }
-  }, [isSuccess]);
+  }, []);
 
   return (
     <div className="sign-up-container">
@@ -93,7 +93,7 @@ function SignUp() {
       </form>
       <Button
         sx={{ mt: 1 /* margin top */ }}
-        onClick={(e) =>{
+        onClick={(e) => {
           e.preventDefault();
           signUp({
             username: username,
@@ -101,7 +101,7 @@ function SignUp() {
             password: password,
             first_name: first_name,
             last_name: last_name,
-          })
+          });
         }}
       >
         Sign Up
