@@ -140,13 +140,13 @@ function Logs() {
 			<div style={{ marginTop: "1rem" }}>
 				Log your meal, exercise and weight here
 				<div>
-					<Fab onClick={handleMealClick} style={{ zIndex: "-1" }}>
+					<Fab onClick={handleMealClick}>
 						<SiCookiecutter style={{ fontSize: "2rem" }} />
 					</Fab>
-					<Fab onClick={handleExerciseClick} style={{ zIndex: "-1" }}>
+					<Fab onClick={handleExerciseClick}>
 						<GiMuscleUp style={{ fontSize: "2rem" }} />
 					</Fab>
-					<Fab onClick={handleWeightClick} style={{ zIndex: "-1" }}>
+					<Fab onClick={handleWeightClick}>
 						<FaWeight style={{ fontSize: "2rem" }} />
 					</Fab>
 				</div>
