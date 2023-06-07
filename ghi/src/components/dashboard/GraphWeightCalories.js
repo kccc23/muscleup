@@ -39,11 +39,13 @@ function GraphWeightCalories() {
                 if (mealDay === day.toDateString()) {
                     for (let meal_item of meal.meal_items) {
                         yMealAxis[6-y] += meal_item.calories;
-                        yMealAxis[6-y] = parseFloat(yMealAxis[6-y].toFixed(2))
                     }
                 }
             }
         }
+    }
+    for (let i=0; i<yMealAxis.length; i++) {
+        yMealAxis[i] = parseFloat(yMealAxis[i].toFixed(2));
     }
 
     const yExerciseAxis = [0,0,0,0,0,0,0];
@@ -62,11 +64,13 @@ function GraphWeightCalories() {
                 if (exerciseDay === day.toDateString()) {
                     for (let exercise_item of exercise.exercise_items) {
                         yExerciseAxis[6-y] += exercise_item.calories;
-                        yExerciseAxis[6-y] = parseFloat(yExerciseAxis[6-y].toFixed(2))
                     }
                 }
             }
         }
+    }
+    for (let i = 0; i < yExerciseAxis.length; i++) {
+        yExerciseAxis[i] = parseFloat(yExerciseAxis[i].toFixed(2));
     }
 
     const yWeightAxis = [0,0,0,0,0,0,0];

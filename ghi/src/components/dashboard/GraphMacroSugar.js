@@ -5,36 +5,54 @@ import { useGetMealsQuery } from "../../redux-elements/logMealApi";
 function GraphMacroSugar() {
     const { data: meals, isLoading: mealsLoading } = useGetMealsQuery();
 
+    if (meals) {
+        var mealToday = meals.filter(meal => {
+            const today = new Date().toDateString();
+            const mealDay = new Date(meal.datetime).toDateString();
+            return mealDay === today;
+        });
+    }
+    const proFatCarb = [0,0,0];
+    const sugarAndOther = [0,0];
+    if (mealToday) {
+        for (let meal of mealToday) {
+            for (let meal_item of meal.meal_items) {
+                proFatCarb[0] += meal_item.protein * 4;
+                proFatCarb[1] += meal_item.total_fat * 9;
+                proFatCarb[2] += meal_item.total_carb * 4;
+                sugarAndOther[0] += meal_item.sugars * 4;
+                sugarAndOther[1] += (meal_item.calories - meal_item.sugars*4);
+            }
+    }}
+    for (let i = 0; i < proFatCarb.length; i++) {
+        proFatCarb[i] = parseFloat(proFatCarb[i].toFixed(2));
+    }
+    sugarAndOther[0] = parseFloat(sugarAndOther[0].toFixed(2));
+    sugarAndOther[1] = parseFloat(sugarAndOther[1].toFixed(2));
+
     var data = [
     {
-        values: [16, 15, 12],
+        values: proFatCarb,
         labels: [
         "Protein",
         "Fat",
         "Carbohydrates",
         ],
         domain: { column: 0 },
-        name: "GHG Emissions",
-        hoverinfo: "label+percent+name",
+        name: "Daily Macro",
+        hoverinfo: "label+percent+value+name",
         hole: 0.4,
         type: "pie",
     },
     {
-        values: [27, 11, 25, 8, 1, 3, 25],
+        values: sugarAndOther,
         labels: [
-        "US",
-        "China",
-        "European Union",
-        "Russian Federation",
-        "Brazil",
-        "India",
-        "Rest of World",
+        "Sugar",
+        "Other Calories",
         ],
-        text: "CO2",
-        textposition: "inside",
         domain: { column: 1 },
-        name: "CO2 Emissions",
-        hoverinfo: "label+percent+name",
+        name: "Sugar Intake",
+        hoverinfo: "label+percent+value+name",
         hole: 0.4,
         type: "pie",
     },
@@ -45,26 +63,23 @@ function GraphMacroSugar() {
     annotations: [
         {
         font: {
-            size: 20,
+            size: 18,
         },
         showarrow: false,
-        text: "GHG",
+        text: "Macro",
         x: 0.17,
         y: 0.5,
         },
         {
         font: {
-            size: 20,
+            size: 18,
         },
         showarrow: false,
-        text: "CO2",
+        text: "Sugar",
         x: 0.82,
         y: 0.5,
         },
     ],
-    height: 400,
-    width: 600,
-    showlegend: false,
     grid: { rows: 1, columns: 2 },
     };
     return (
