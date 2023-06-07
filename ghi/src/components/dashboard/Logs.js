@@ -191,7 +191,7 @@ function Logs() {
 									</div>
 								);
 							}
-							return {};
+							// return {};
 						})}
 					</div>
 				) : null}
@@ -232,7 +232,7 @@ function Logs() {
 									</div>
 								);
 							}
-							return {};
+							// return {};
 						})}
 					</div>
 				) : null}

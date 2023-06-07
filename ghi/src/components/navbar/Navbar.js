@@ -1,6 +1,6 @@
 import "./Navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
-import { ImHome, ImMenu } from "react-icons/im";
+import { ImMenu } from "react-icons/im";
 import React, { useState, useEffect } from "react";
 import { useGetTokenQuery } from "../../redux-elements/authApi";
 import Avatar from "@mui/joy/Avatar";
@@ -10,6 +10,8 @@ import { authApiSlice } from "../../redux-elements/authApi";
 import LogInModal from "../Modal/LoginModal";
 import Menu from "@mui/joy/Menu";
 import MenuItem from "@mui/joy/MenuItem";
+
+
 
 function Navbar() {
 	const [sideBar, setSideBar] = useState(false);
@@ -59,9 +61,8 @@ function Navbar() {
 	return (
 		<nav className="navbar">
 			<div className="navbar-container-image">
-				<ImHome className="navbar-logo"></ImHome>
 				<NavLink className="navbar-title" to="/">
-					MuscleUp
+					MUSCLE UP
 				</NavLink>
 			</div>
 
@@ -95,7 +96,7 @@ function Navbar() {
 				{data ? (
 					<>
 						<div className="navbar-profile" onClick={handleDropDownClick}>
-							<Avatar className="avatar" variant="solid" src="" />
+							<Avatar className="avatar" variant="solid" src={data.account.avatar} />
 						</div>
 						<Menu
 							id="basic-menu"
@@ -104,16 +105,28 @@ function Navbar() {
 							onClose={handleDropDownClose}
 							aria-labelledby="basic-demo-button"
 						>
-							<MenuItem onClick={() => {handleDropDownClose(); navigate("/")}}>Home</MenuItem>
-							<MenuItem onClick={() => {handleDropDownClose(); navigate("/dashboard")}}>Dashboard</MenuItem>
+							<MenuItem
+								onClick={() => {
+									handleDropDownClose();
+									navigate("/");
+								}}
+							>
+								Home
+							</MenuItem>
+							<MenuItem
+								onClick={() => {
+									handleDropDownClose();
+									navigate("/dashboard");
+								}}
+							>
+								Dashboard
+							</MenuItem>
 							<MenuItem onClick={handleLogOut}>Logout</MenuItem>
 						</Menu>
 					</>
 				) : (
-					<div className="navbar-button">
-						<NavLink className="navbar-link" to="/signup">
-							Muscle UP!
-						</NavLink>
+					<div className="navbar-button" onClick={() => navigate("/signup")}>
+						<div className="navbar-link-button">Muscle UP!</div>
 					</div>
 				)}
 				<div className="navbar-hamburger-button">
@@ -126,7 +139,9 @@ function Navbar() {
 						{data ? (
 							<>
 								<NavLink to="/" onClick={toggleSideBar} style={{ textDecoration: "None" }}>
-									<li className="navItemSide">Home</li>
+									<li className="navItemSide" style={{ marginTop: "4.5rem" }}>
+										Home
+									</li>
 								</NavLink>
 								<NavLink to="/dashboard" onClick={toggleSideBar} style={{ textDecoration: "None" }}>
 									<li className="navItemSide">Dashboard</li>
@@ -138,7 +153,9 @@ function Navbar() {
 						) : (
 							<>
 								<NavLink to="/" onClick={toggleSideBar} style={{ textDecoration: "None" }}>
-									<li className="navItemSide">Home</li>
+									<li className="navItemSide" style={{ marginTop: "4.5rem" }}>
+										Home
+									</li>
 								</NavLink>
 								<NavLink to="/signup" onClick={toggleSideBar} style={{ textDecoration: "None" }}>
 									<li className="navItemSide">Signup</li>
@@ -159,7 +176,7 @@ function Navbar() {
 				<div
 					className="dark-overlay"
 					onClick={toggleSideBar}
-					style={sideBar ? { opacity: "100%" } : { opacity: "0%", display: "none" }}
+					style={sideBar ? { opacity: "100%" } : { opacity: "0%", pointerEvents: "none" }}
 				/>
 				<div
 					className="login-modal"
