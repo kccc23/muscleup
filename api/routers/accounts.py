@@ -115,7 +115,7 @@ async def delete_account_info(
 async def get_token(
     request: Request,
     repo: AccountQueries = Depends(),
-    account: Account = Depends(authenticator.try_get_current_account_data)
+    account: Account = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
     if account and authenticator.cookie_name in request.cookies:
         account_info = repo.get(account["email"])

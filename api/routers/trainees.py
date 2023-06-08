@@ -9,7 +9,8 @@ from auth import authenticator
 from queries.trainees import (
     TraineeQueries,
     DuplicateTraineeError,
-    NoProfileError)
+    NoProfileError,
+)
 from models import (
     TraineeProfileIn,
     TraineeProfileOut,
@@ -53,9 +54,9 @@ async def create_trainee_profile(
                 detail="Trainee already exists with this account information.",
             )
     raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Profile cannot be created if not logged in.",
-        )
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Profile cannot be created if not logged in.",
+    )
 
 
 # Route to be determined once front-end is more defined
