@@ -39,17 +39,16 @@
 .hero-p-tag {
         display: flex;
         font-size: 20px;
-        font-style: bold;
         padding-left: 5rem;
         padding-top: 5rem;
         color: #fff;
+        margin: 0;
 }
 
 .hero-sign-up {
         display: flex;
         align-items: center;
         font-size: 20px;
-        font-style: bold;
         border-radius: 1rem;
         margin-left: 5rem;
         margin-right: 58rem;
@@ -60,6 +59,7 @@
         color: #fff;
         background-color: #297373;
         width: 120px;
+        margin-top: 1rem;
 }
 
 
@@ -67,17 +67,16 @@
     .hero-p-tag {
         display: flex;
         font-size: 20px;
-        font-style: bold;
         padding-left: 5rem;
         padding-top: 7rem;
         color: #fff;
+        margin: 0;
     }
 
     .hero-sign-up {
         display: flex;
         align-items: center;
         font-size: 20px;
-        font-style: bold;
         border-radius: 1rem;
         margin-left: 5rem;
         margin-right: 58rem;
@@ -88,24 +87,27 @@
         color: #fff;
         background-color: #297373;
         width: 120px;
+        margin-top: 1rem;
     }
 }
 
 @media (min-width: 1200px){
     .hero-p-tag {
         display: flex;
-        font-size: 20px;
-        font-style: bold;
+        font-size: 30px;
+        font-family: Arial, Helvetica, sans-serif;
         padding-left: 5rem;
         padding-top: 16rem;
         color: #fff;
+        line-height: 40px;
+        margin: 0;
 }
 
 .hero-sign-up {
         display: flex;
         align-items: center;
         font-size: 20px;
-        font-style: bold;
+        font-family: Arial, Helvetica, sans-serif;
         border-radius: 1rem;
         margin-left: 5rem;
         margin-right: 58rem;
@@ -116,5 +118,6 @@
         color: #fff;
         background-color: #297373;
         width: 120px;
+        margin-top: 1.5rem;
 }
 }
