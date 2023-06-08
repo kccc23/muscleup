@@ -54,6 +54,7 @@ function GraphMacroSugar() {
 
 	const layout = {
 		title: "Daily Macro and Sugar Intake",
+		autosize: true,
 		annotations: [
 			{
 				font: {
@@ -80,7 +81,11 @@ function GraphMacroSugar() {
 	return (
 		<div className="graph-component">
 			<div className="graph">
-				{mealsLoading ? <>Loading...</> : meals ? <Plot data={data} layout={layout} /> : null}
+				{mealsLoading ? (
+					<>Loading...</>
+				) : meals ? (
+					<Plot data={data} layout={layout} useResizeHandler={true} />
+				) : null}
 			</div>
 		</div>
 	);

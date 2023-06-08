@@ -192,20 +192,22 @@ function GraphWeightCalories() {
 
     const caloriesData = [mealTrace, exerciseTrace, dailyCaloriesTrace, dailyCaloriesGoalTrace];
     const caloriesLayout = {
-        title: "Calories of Food Intake and Exercise",
-        xaxis: {
-            title: 'One Week',
-            showgrid: false,
-        },
-        yaxis: {
-            title: 'Calories',
-            showline: false,
-        }
-    };
+		title: "Calories of Food Intake and Exercise",
+		autosize: true,
+		xaxis: {
+			title: "One Week",
+			showgrid: false,
+		},
+		yaxis: {
+			title: "Calories",
+			showline: false,
+		},
+	};
 
     const weightsData = [weightTrace, goalWeightTrace];
     const weightsLayout = {
         title: "Weight in lbs",
+        autosize: true,
         xaxis: {
             title: 'One Week',
             showgrid: false,
@@ -226,6 +228,7 @@ function GraphWeightCalories() {
                     <Plot
                         data={caloriesData}
                         layout={caloriesLayout}
+                        useResizeHandler={true}
                     />
                 </div>
             ) : null}
@@ -238,6 +241,7 @@ function GraphWeightCalories() {
                     <Plot
                         data={weightsData}
                         layout={weightsLayout}
+                        useResizeHandler={true}
                     />
                 </div>
             ) : null}
