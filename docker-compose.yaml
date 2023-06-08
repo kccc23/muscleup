@@ -39,7 +39,7 @@ services:
         image: mongo
         volumes:
             - ./setup/mongodb:/docker-entrypoint-initdb.d
-            - mongodb_data:/data/db
+            - mongo-database:/data/db
         ports:
             - 27017:27017
         environment:
