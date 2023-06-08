@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routers import accounts, trainees, logs
+from routers import accounts, trainees, logs, trainers
 from auth import authenticator
 import os
 

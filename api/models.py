@@ -126,6 +126,34 @@ class LogWeight(BaseModel):
     log_weight: float
     datetime: str
 
-
 class LogWeightIn(BaseModel):
     log_weight: float
+
+class Trainer(BaseModel):
+    id: str
+    account_id: str
+    account_email: str
+    picture: str
+    qualification: str
+    tags: list | None
+    description: str
+    price: int
+    trainees: list | None
+
+class TrainerIn(BaseModel):
+    picture: str
+    qualification: str
+    tags: list | None
+    description: str
+    price: int
+
+class Trainer(BaseModel):
+    id: str
+    account_id: str
+    account_email: str
+    picture: str
+    qualification: str
+    tags: list | None
+    description: str
+    price: int
+    trainees: list | None

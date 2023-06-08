@@ -3,8 +3,9 @@
 Today, I worked on:
 * Two interactive react plotly donut graphs for daily macro, and sugar intake
 * Deployment
+* Trainers
 
-I wrote a GraphMacro Sugar component to access food intake of the day, and counted all the protein, fat and carb from every meal_item, then used react plotly and plotly js to display a donut graph for daily macro tracking. In the same component, I aslo access and count the sugar calories and total calories(excluded sugar) from each meal_item of the day, to display a donut graph for sugar intake percentage. I also worked on deployment with Yosef, Sonny and Charles.
+I wrote a GraphMacro Sugar component to access food intake of the day, and counted all the protein, fat and carb from every meal_item, then used react plotly and plotly js to display a donut graph for daily macro tracking. In the same component, I aslo access and count the sugar calories and total calories(excluded sugar) from each meal_item of the day, to display a donut graph for sugar intake percentage. I also worked on deployment with Yosef for a little. Then I moved onto trainers backend.
 
 Today, I learned some styling with donut chats on react plotly. I found that styling and naming items with react plotly are quite easy to implement. This chart is easier to make compared to the charts yesterday, since I only need to access the meals of the day, not the last 7 days.
 
