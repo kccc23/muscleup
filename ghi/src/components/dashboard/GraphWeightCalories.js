@@ -76,6 +76,11 @@ function GraphWeightCalories() {
     }
 
     const yWeightAxis = [0,0,0,0,0,0,0];
+    if(profile) {
+        for (let i=0; i<yWeightAxis.length; i++) {
+            yWeightAxis[i] = profile.weight;
+        }
+    }
     if (weights) {
         var weightsForWeek = weights.filter(weight => {
             const weightDay = new Date(weight.datetime);
