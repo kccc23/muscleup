@@ -6,8 +6,14 @@ from fastapi import (
 from auth import authenticator
 from queries.logs import LogMealQueries, LogExerciseQueries, LogWeightQueries
 from queries.trainees import TraineeQueries
-from models import (LogMealIn, LogMeal, LogExercise, LogExerciseIn,
-                    LogWeight, LogWeightIn)
+from models import (
+    LogMealIn,
+    LogMeal,
+    LogExercise,
+    LogExerciseIn,
+    LogWeight,
+    LogWeightIn,
+)
 from typing import Optional
 from pydantic import BaseModel
 from datetime import date, datetime
@@ -66,9 +72,7 @@ async def delete_meal(
     return {"message": "no account logged in"}
 
 
-@router.get(
-    "/api/exercises", response_model=list[LogExercise] | dict
-)
+@router.get("/api/exercises", response_model=list[LogExercise] | dict)
 async def get_exercise_list(
     repo: LogExerciseQueries = Depends(),
     account_data: Optional[dict] = Depends(

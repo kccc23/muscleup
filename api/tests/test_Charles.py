@@ -21,23 +21,35 @@ class Account(BaseModel):
 
 class FakeQueries:
     def get(self, email):
-        return Account(id="123", username="user3000",
-                       email="user3000@email.com",
-                       first_name="User", last_name="3000",
-                       role="trainee", password="password",
-                       avatar="str")
+        return Account(
+            id="123",
+            username="user3000",
+            email="user3000@email.com",
+            first_name="User",
+            last_name="3000",
+            role="trainee",
+            password="password",
+            avatar="str",
+        )
 
 
 def fake_account():
-    return {"id": "123", "username": "user3000",
-            "email": "user3000@email.com",
-            "first_name": "User", "last_name": "3000", "role": "trainee",
-            "password": "password", "avatar": "str"}
+    return {
+        "id": "123",
+        "username": "user3000",
+        "email": "user3000@email.com",
+        "first_name": "User",
+        "last_name": "3000",
+        "role": "trainee",
+        "password": "password",
+        "avatar": "str",
+    }
 
 
 def test_get_account():
-    app.dependency_overrides[authenticator.try_get_current_account_data] = \
-        fake_account
+    app.dependency_overrides[
+        authenticator.try_get_current_account_data
+    ] = fake_account
     app.dependency_overrides[AccountQueries] = FakeQueries
     response = client.get("/api/accounts")
     app.dependency_overrides = {}
