@@ -102,7 +102,7 @@ function LogInModal({ toggleLogInModal }) {
 					<Button sx={{ mt: 1 /* margin top */ }} type="submit" onClick={handleLogIn}>
 						Log in
 					</Button>
-					<Typography endDecorator={<Link href="/signup">Sign up</Link>} fontSize="sm" sx={{ alignSelf: "center" }}>
+					<Typography endDecorator={<Link to="/signup">Sign up</Link>} fontSize="sm" sx={{ alignSelf: "center" }}>
 						Don&apos;t have an account?
 					</Typography>
 				</Sheet>
