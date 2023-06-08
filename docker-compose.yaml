@@ -39,7 +39,7 @@ services:
         image: mongo
         volumes:
             - ./setup/mongodb:/docker-entrypoint-initdb.d
-            - mongo-database:/data/db
+            - mongodb_data:/data/db
         ports:
             - 27017:27017
         environment:
@@ -47,5 +47,5 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: ${MONGO_DB_PASSWORD}
 
 volumes:
-    mongo-database:
+    mongodb_data:
         external: true
