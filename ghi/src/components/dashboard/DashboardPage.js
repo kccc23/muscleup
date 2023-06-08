@@ -47,21 +47,19 @@ function Dashboard() {
     }
 
     return (
-        <div style={{ display: 'grid', gridTemplateColumns: '3fr 1fr', gridTemplateRows: '1fr 2fr', gap: '20px' }}>
-            <div style={{ border: "3px solid grey", gridRow: 'span 1' }}>
-                <ProfileDashboard />
-            </div>
-            <div style={{ border: "3px solid grey", gridRow: 'span 3' }}>
-                <Logs />
-            </div>
-            <div style={{ border: "3px solid grey", gridRow: 'span 2' }}>
-                <GraphWeightCalories />
-            </div>
-            <div style={{ border: "3px solid grey", gridRow: 'span 2' }}>
-                <GraphMacroSugar />
-            </div>
-        </div>
-    );
+		<div style={{ display: "flex", justifyContent: "center" }}>
+			<div className="dashboard-container">
+				<div className="dashboard-component">
+					<ProfileDashboard />
+				</div>
+				<div className="dashboard-component">
+					<Logs />
+				</div>
+				<div className="dashboard-component"><GraphWeightCalories /></div>
+				<div className="dashboard-component"><GraphMacroSugar /></div>
+			</div>
+		</div>
+	);
 }
 
 export default Dashboard;
