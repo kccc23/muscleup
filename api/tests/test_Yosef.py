@@ -22,7 +22,7 @@ class TraineeProfile(BaseModel):
 class FakeQueries:
     def __init__(self):
         self.database = {
-            "user3000@email.com" : TraineeProfile(
+            "user3000@email.com": TraineeProfile(
                 account_id="123",
                 account_email="user3000@email.com",
                 id="111",
@@ -34,11 +34,10 @@ class FakeQueries:
                 gender="Male",
             )
         }
+
     def delete(self, email):
         del self.database[email]
         return self.database
-        
-        
 
 
 def fake_account():
@@ -53,8 +52,11 @@ def fake_account():
         "avatar": "str",
     }
 
+
 def test_delete_profile():
-    app.dependency_overrides[authenticator.try_get_current_account_data] = fake_account
+    app.dependency_overrides[
+        authenticator.try_get_current_account_data
+    ] = fake_account
     app.dependency_overrides[TraineeQueries] = FakeQueries
     response = client.delete("/api/trainee_profiles")
     app.dependency_overrides = {}
