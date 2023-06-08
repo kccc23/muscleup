@@ -11,6 +11,8 @@ import Button from "@mui/joy/Button";
 import Avatar from '@mui/joy/Avatar';
 
 function AvatarModal(showForm, setShowForm, form, setForm, updateAvatar=null) {
+
+
     const fields = Object.keys(form);
 
     const handleFormChange = (e) => {
@@ -98,20 +100,20 @@ function ProfileDashboard() {
 
 
     return (
-        <div>
-            <Avatar src={tokenData.account.avatar} />
-            <button onClick={handleAvatarClick}>Update your avatar</button>
-            <div>
-                <p>Your goals are {profile?.goal}</p>
-                <div>Your current weight is {profile?.weight} lbs</div>
-                <div>Your goal weight is {profile?.goal_weight} lbs </div>
-            </div>
-            {showAvatarForm && (
-                AvatarModal(showAvatarForm, setShowAvatarForm, avatarForm, setAvatarForm, updateAvatar)
-            )}
-        </div>
-
-    );
+		<div className="profile-component">
+			<div className="avatar-profile">
+				<Avatar src={tokenData.account.avatar} onClick={handleAvatarClick} sx={{ width: 120, height: 120 }} />
+			</div>
+			<div className="profile-text">
+				<p className="goals">{profile?.goal}</p>
+				<div className="weight components">
+					<div>Your current weight is {profile?.weight} lbs</div>
+					<div>Your goal weight is {profile?.goal_weight} lbs </div>
+				</div>
+			</div>
+			{showAvatarForm && AvatarModal(showAvatarForm, setShowAvatarForm, avatarForm, setAvatarForm, updateAvatar)}
+		</div>
+	);
 }
 
 export default ProfileDashboard;

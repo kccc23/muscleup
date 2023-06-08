@@ -136,26 +136,34 @@ function Logs() {
 	let exerciseTotalCal = 0;
 
 	return (
-		<>
-			<div style={{ marginTop: "1rem" }}>
-				Log your meal, exercise and weight here
-				<div>
-					<Fab onClick={handleMealClick}>
-						<SiCookiecutter style={{ fontSize: "2rem" }} />
+		<div className="log-container">
+			<div>
+				<div className="button-box">
+					<Fab onClick={handleMealClick} style={{ zIndex: "1" }} size="small">
+						<SiCookiecutter style={{ fontSize: "1rem" }} />
 					</Fab>
-					<Fab onClick={handleExerciseClick}>
-						<GiMuscleUp style={{ fontSize: "2rem" }} />
+					<Fab onClick={handleExerciseClick} style={{ zIndex: "1" }} size="small">
+						<GiMuscleUp style={{ fontSize: "1rem" }} />
 					</Fab>
-					<Fab onClick={handleWeightClick}>
-						<FaWeight style={{ fontSize: "2rem" }} />
+					<Fab onClick={handleWeightClick} style={{ zIndex: "1" }} size="small">
+						<FaWeight style={{ fontSize: "1rem" }} />
 					</Fab>
 				</div>
 				{showMealForm && LogModal(showMealForm, setShowMealForm, mealForm, setMealForm, createMeal)}
-				{showExerciseForm && LogModal(showExerciseForm, setShowExerciseForm, exerciseForm, setExerciseForm, createExercise)}
-				{showWeightForm && LogModal(showWeightForm, setShowWeightForm, weightForm, setWeightForm, createWeight, updateWeightProfile)}
+				{showExerciseForm &&
+					LogModal(showExerciseForm, setShowExerciseForm, exerciseForm, setExerciseForm, createExercise)}
+				{showWeightForm &&
+					LogModal(
+						showWeightForm,
+						setShowWeightForm,
+						weightForm,
+						setWeightForm,
+						createWeight,
+						updateWeightProfile
+					)}
 			</div>
-			<div style={{ marginTop: "1rem" }}>
-				See your meals and calories here
+			<div>
+				<p className="section-label">Today's calorie intake</p>
 				{mealLoading ? (
 					<>Loading...</>
 				) : meals ? (
@@ -167,26 +175,28 @@ function Logs() {
 								return (
 									<div key={meal.id}>
 										<div style={{ display: "flex" }}>
-											<ul>
+											<ul className="calorie-list">
 												{meal.meal_items.map((meal_item) => {
 													foodTotalCal += meal_item.calories;
 													return (
-														<li key={meal_item.calories}>
-															{meal_item.serving_qty} {meal_item.serving_unit} {meal_item.food_name}{" "}
-															{meal_item.calories}
-														</li>
+														<>
+															<li key={meal_item.calories} className="calorie-item">
+																{meal_item.serving_qty} {meal_item.serving_unit}{" "}
+																{meal_item.food_name} {meal_item.calories} calories
+																<IconButton
+																	aria-label="delete"
+																	onClick={(e) => {
+																		e.preventDefault();
+																		deleteMeal(meal.id);
+																	}}
+																>
+																	<DeleteIcon />
+																</IconButton>
+															</li>
+														</>
 													);
 												})}
 											</ul>
-											<IconButton
-												aria-label="delete"
-												onClick={(e) => {
-													e.preventDefault();
-													deleteMeal(meal.id);
-												}}
-											>
-												<DeleteIcon />
-											</IconButton>
 										</div>
 									</div>
 								);
@@ -197,7 +207,7 @@ function Logs() {
 				) : null}
 			</div>
 			<div style={{ marginTop: "1rem" }}>
-				See your exercises and calories here
+				<p className="section-label">Today's calories burned</p>
 				{exerciseLoading ? (
 					<>Loading...</>
 				) : exercises ? (
@@ -209,25 +219,26 @@ function Logs() {
 								return (
 									<div key={exercise.id}>
 										<div style={{ display: "flex" }}>
-											<ul>
+											<ul className="calorie-list">
 												{exercise.exercise_items.map((exercise_item) => {
 													exerciseTotalCal += exercise_item.calories;
 													return (
 														<li key={exercise_item.calories}>
-															{exercise_item.name} {exercise_item.duration_min} minutes {exercise_item.calories}
+															{exercise_item.name} {exercise_item.duration_min} minutes{" "}
+															{exercise_item.calories} calories burned
+															<IconButton
+																aria-label="delete"
+																onClick={(e) => {
+																	e.preventDefault();
+																	deleteExercise(exercise.id);
+																}}
+															>
+																<DeleteIcon />
+															</IconButton>
 														</li>
 													);
 												})}
 											</ul>
-											<IconButton
-												aria-label="delete"
-												onClick={(e) => {
-													e.preventDefault();
-													deleteExercise(exercise.id);
-												}}
-											>
-												<DeleteIcon />
-											</IconButton>
 										</div>
 									</div>
 								);
@@ -238,10 +249,10 @@ function Logs() {
 				) : null}
 			</div>
 			<div>
-				<p>Total food calories are {foodTotalCal.toFixed(2)}</p>
-				<p>Total exercise calories are {exerciseTotalCal.toFixed(2)}</p>
+				<p>Calories gained from food: {foodTotalCal.toFixed(2)} kcal</p>
+				<p>Calories burned from exercise: {exerciseTotalCal.toFixed(2)} kcal</p>
 			</div>
-		</>
+		</div>
 	);
 }
 
