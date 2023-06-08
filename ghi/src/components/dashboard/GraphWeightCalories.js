@@ -217,8 +217,8 @@ function GraphWeightCalories() {
     }
 
     return (
-        <div style={{ display: 'flex' }}>
-        <div>
+        <div className="graph-component">
+        <div className="graph">
             {(mealsLoading || exercisesLoading) ? (
                 <>Loading...</>
             ): (meals && exercises) ? (
@@ -234,7 +234,7 @@ function GraphWeightCalories() {
             {(weightsLoading || profileLoading) ? (
                 <>Loading...</>
             ): weights ? (
-                <div>
+                <div className="graph">
                     <Plot
                         data={weightsData}
                         layout={weightsLayout}

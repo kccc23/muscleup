@@ -97,7 +97,7 @@ function Navbar() {
 				{data ? (
 					<>
 						<div className="navbar-profile" onClick={handleDropDownClick}>
-							<Avatar className="avatar" variant="solid" src={data.account.avatar} />
+							<Avatar className="avatar" variant="solid" src={data.account.avatar} size="lg"/>
 						</div>
 						<Menu
 							id="basic-menu"
