@@ -3,7 +3,11 @@ import { useState } from "react";
 import { useCreateMealMutation, useGetMealsQuery, useDeleteMealMutation } from "../../redux-elements/logMealApi";
 import { useCreateWeightMutation } from "../../redux-elements/logWeightApi";
 import { useUpdateWeightProfileMutation } from "../../redux-elements/profileApi";
-import { useCreateExerciseMutation, useGetExercisesQuery, useDeleteExerciseMutation } from "../../redux-elements/logExerciseApi";
+import {
+	useCreateExerciseMutation,
+	useGetExercisesQuery,
+	useDeleteExerciseMutation,
+} from "../../redux-elements/logExerciseApi";
 import Fab from "@mui/material/Fab";
 import { SiCookiecutter } from "react-icons/si";
 import { GiMuscleUp } from "react-icons/gi";
@@ -71,7 +75,14 @@ function LogModal(showForm, setShowForm, form, setForm, createMutation, updateWe
 				{fields.map((field) => (
 					<div key={field}>
 						<FormLabel>{field}</FormLabel>
-						<Input required value={form.field} name={field} onChange={handleFormChange} type="text" placeholder={field} />
+						<Input
+							required
+							value={form.field}
+							name={field}
+							onChange={handleFormChange}
+							type="text"
+							placeholder={field}
+						/>
 					</div>
 				))}
 				<Button onClick={handleSubmit}>Add</Button>
@@ -179,21 +190,19 @@ function Logs() {
 												{meal.meal_items.map((meal_item) => {
 													foodTotalCal += meal_item.calories;
 													return (
-														<>
-															<li key={meal_item.calories} className="calorie-item">
-																{meal_item.serving_qty} {meal_item.serving_unit}{" "}
-																{meal_item.food_name} {meal_item.calories} calories
-																<IconButton
-																	aria-label="delete"
-																	onClick={(e) => {
-																		e.preventDefault();
-																		deleteMeal(meal.id);
-																	}}
-																>
-																	<DeleteIcon />
-																</IconButton>
-															</li>
-														</>
+														<li key={meal_item.calories} className="calorie-item">
+															{meal_item.serving_qty} {meal_item.serving_unit}{" "}
+															{meal_item.food_name} {meal_item.calories} calories
+															<IconButton
+																aria-label="delete"
+																onClick={(e) => {
+																	e.preventDefault();
+																	deleteMeal(meal.id);
+																}}
+															>
+																<DeleteIcon />
+															</IconButton>
+														</li>
 													);
 												})}
 											</ul>
