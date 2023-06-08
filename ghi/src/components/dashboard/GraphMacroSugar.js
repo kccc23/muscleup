@@ -53,7 +53,7 @@ function GraphMacroSugar() {
 	];
 
 	const layout = {
-		title: "Daily Macro and Sugar Intake",
+		title: "Daily Macro Calories and Sugar Intake",
 		autosize: true,
 		annotations: [
 			{

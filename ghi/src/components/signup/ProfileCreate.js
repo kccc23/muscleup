@@ -14,11 +14,10 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 
 
-
 function ProfileCreate() {
     const rangeFeet = [3,4,5,6,7]
     const rangeInches = [0,1,2,3,4,5,6,7,8,9,10,11]
-    const [createProfile] = useCreateProfileMutation();
+    const [createProfile, {error: profileError} ] = useCreateProfileMutation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -57,10 +56,9 @@ function ProfileCreate() {
             date_of_birth: date_of_birth,
             gender: gender
         })
-
         if (response.data) {
-            setError(false);
             navigate("/dashboard");
+            setError(false);
         } else {
             setError(true);
         }
@@ -69,10 +67,16 @@ function ProfileCreate() {
     return (
         <div className="sign-up-container">
             <h1>Create Your Profile</h1>
-            {error && (
+            {error && profileError && profileError.status===422 && (
                 <Alert severity="error" onClose={() => {setError(false)}}>
                 <AlertTitle>Error</AlertTitle>
-                    Profile for this user already exists
+                    Invalid form
+                </Alert>
+            )}
+            {error && profileError && profileError.status===400 && (
+                <Alert severity="error" onClose={() => {setError(false)}}>
+                <AlertTitle>Error</AlertTitle>
+                    This profile already exists
                 </Alert>
             )}
             <form>

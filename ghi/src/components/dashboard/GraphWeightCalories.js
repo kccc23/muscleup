@@ -155,7 +155,7 @@ function GraphWeightCalories() {
         y: yDailyCalories,
         type: "scatter",
         mode: "lines",
-        name: "Daily Calories Total",
+        name: "Daily Calories Net",
         line: {
             dash: 'dashdot',
             width: 3,
