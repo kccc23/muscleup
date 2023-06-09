@@ -73,7 +73,7 @@ function Navbar() {
 						{data ? (
 							<>
 								<li className="navbar-item">
-									<NavLink className="navbar-link" to="">
+									<NavLink className="navbar-link" to="/trainers">
 										Trainers
 									</NavLink>
 								</li>
@@ -81,7 +81,7 @@ function Navbar() {
 						) : (
 							<>
 								<li className="navbar-item">
-									<NavLink className="navbar-link" to="">
+									<NavLink className="navbar-link" to="/trainers">
 										Trainers
 									</NavLink>
 								</li>

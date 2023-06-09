@@ -7,6 +7,7 @@ import { profileSlice } from "./profileSlice";
 import { mealApiSlice } from "./logMealApi";
 import { weightApiSlice } from "./logWeightApi";
 import { exerciseApiSlice } from "./logExerciseApi";
+import { trainerApiSlice } from "./trainerApi";
 
 export const store = configureStore({
 	reducer: {
@@ -17,8 +18,7 @@ export const store = configureStore({
 		[mealApiSlice.reducerPath]: mealApiSlice.reducer,
 		[weightApiSlice.reducerPath]: weightApiSlice.reducer,
 		[exerciseApiSlice.reducerPath]: exerciseApiSlice.reducer,
-
-
+		[trainerApiSlice.reducerPath]: trainerApiSlice.reducer,
 	},
 	middleware: getDefaultMiddleware => {
     return getDefaultMiddleware()
@@ -27,6 +27,7 @@ export const store = configureStore({
 		.concat(mealApiSlice.middleware)
 		.concat(weightApiSlice.middleware)
 		.concat(exerciseApiSlice.middleware)
+		.concat(trainerApiSlice.middleware)
 	},
 });
 

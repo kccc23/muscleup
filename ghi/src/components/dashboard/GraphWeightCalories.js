@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import { useGetMealsQuery } from '../../redux-elements/logMealApi';
 import { useGetExercisesQuery } from '../../redux-elements/logExerciseApi';
@@ -6,10 +6,15 @@ import { useGetWeightsQuery } from '../../redux-elements/logWeightApi';
 import { useGetProfileQuery } from '../../redux-elements/profileApi';
 
 function GraphWeightCalories() {
-    const { data: meals, isLoading: mealsLoading } = useGetMealsQuery();
-    const { data: exercises, isLoading: exercisesLoading } = useGetExercisesQuery();
-    const { data: weights, isLoading: weightsLoading } = useGetWeightsQuery();
-    const { data: profile, isLoading: profileLoading } = useGetProfileQuery();
+    const { data: meals, isLoading: mealsLoading, refetch: refetchMeals } = useGetMealsQuery();
+    const { data: exercises, isLoading: exercisesLoading, refetch: refetchExercises } = useGetExercisesQuery();
+    const { data: weights, isLoading: weightsLoading, refetch: refetchWeights } = useGetWeightsQuery();
+    const { data: profile, isLoading: profileLoading, refetch: refetchProfile } = useGetProfileQuery();
+
+    useEffect(() => { refetchMeals() }, [refetchMeals]);
+    useEffect(() => { refetchExercises() }, [refetchExercises]);
+    useEffect(() => { refetchWeights() }, [refetchWeights]);
+    useEffect(() => { refetchProfile() }, [refetchProfile]);
 
     const xAxis = [6,5,4,3,2,1,0];
     const xDateAxis = xAxis.map(x => {
