@@ -48,3 +48,34 @@ Today, I learned MUI is really great for burron component, like small things com
 Today, I worked on:
 
 * Mock up
+* Logs component
+
+## May 10, 2023
+
+Today, I worked on:
+
+* Api endpoints
+
+We worked on creating api endpoints. We defined the backend endpoint path, the request and response Json body with fields for our accounts, trainee profiles, meal/exercise logs, and trainers as stretch goals.
+
+I learned that building an app could be complicated. 
+
+## May 9, 2023
+
+Today, I worked on:
+
+* Wireframe
+
+We worked on wire framing our fitness app, with sign up, log in, log out, create profile, and our MVP - calories and weight tracking. We designed what the pages should look like, the layout and pop up log item modals.
+
+Today, I looked at fitness websites like Noom, Aura, Lost it and My Fitness Pal, etc, and I found ome of them offers great user experience, such as very clean charts and easy food logs. We try to learn from them.
+
+## May 8, 2023
+
+Today, I worked on:
+
+* Idea brain storm
+
+I worked with Sonny, Yosef and Charles, AKA the whole team, on brain storming our project idea. We quickly decided to build a fitness tracking app to track food intake calories and exercise calories, and have trainers work virtually with any client that wants to achieve their fitness goals.
+
+Today, I learned Charles plays and coaches tennis, Sonny used to train as a boxing athlete and Yosef loves fitness and sports. I aslo learned some third party api related to health and fitness, like Nutritionix, it uses natural language processing to understand user input and output meal items with nutrition and calories information.

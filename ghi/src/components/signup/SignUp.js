@@ -8,6 +8,7 @@ import * as React from "react";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
+import Alert from "@mui/material/Alert";
 
 function InputTag(props) {
 	const { field, value, name, type, placeholder } = props;
@@ -28,7 +29,7 @@ function SignUp() {
 		(state) => state.account
 	);
 	const dispatch = useDispatch();
-	const [signUp, { isSuccess }] = useSignUpMutation();
+	const [signUp, { error: signUpError, isSuccess }] = useSignUpMutation();
 	const navigate = useNavigate();
 	const field = useCallback(
 		(e) =>
@@ -51,6 +52,9 @@ function SignUp() {
 	return (
 		<div className="sign-up-container">
 			<h1>Sign Up</h1>
+			{signUpError && signUpError.status === 400 && (
+				<Alert severity="error">This email is taken, please use another email</Alert>
+			)}
 			<form>
 				<FormLabel>Username</FormLabel>
 				<InputTag
