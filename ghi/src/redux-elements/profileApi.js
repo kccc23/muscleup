@@ -38,7 +38,7 @@ export const profileApiSlice = createApi({
 					await queryFulfilled;
 					dispatch(clearForm());
 				} catch (err) {
-					console.error("you got an error", err);
+					console.error(err);
 				}
 			},
 			invalidatesTags: ["ProfileInformation"],

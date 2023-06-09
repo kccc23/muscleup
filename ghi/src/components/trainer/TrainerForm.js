@@ -7,6 +7,7 @@ import { useGetTokenQuery } from "../../redux-elements/authApi";
 import FormLabel from "@mui/joy/FormLabel";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
+import Alert from "@mui/material/Alert";
 
 function InputTag(props) {
 	const { field, value, name, type, placeholder } = props;
@@ -30,8 +31,8 @@ function TrainerForm() {
         description: "",
         price: "",
     });
-    const [ createTrainer, { isSuccess } ] = useCreateTrainerMutation();
-    const { data: account, error, isLoading, refetch: refetchToken } = useGetTokenQuery();
+    const [ createTrainer, { error: trainerError, isSuccess } ] = useCreateTrainerMutation();
+    const { data: account, error: tokenError, isLoading, refetch: refetchToken } = useGetTokenQuery();
     const navigate = useNavigate();
 
     useEffect(() => { refetchToken() }, [refetchToken]);
@@ -53,7 +54,7 @@ function TrainerForm() {
         setFormData({...formData ,[inputName]: value});
     }
 
-    if (error) {
+    if (tokenError) {
         return <div className="trainer-error-loading-null-div">Oh no, there is an error</div>;
     }
 
@@ -75,6 +76,9 @@ function TrainerForm() {
     return (
         <div className="trainer-form">
             <h1>Apply to be a Trainer</h1>
+			{trainerError && trainerError.status === 400 && (
+				<Alert severity="error">This trainer already exists</Alert>
+			)}
             <form>
                 <FormLabel>Picture</FormLabel>
 				<InputTag
@@ -127,6 +131,13 @@ function TrainerForm() {
 						tags: formData.tags,
 						description: formData.description,
 						price: formData.price,
+					});
+					setFormData({
+						picture: "",
+						qualification: "",
+						tags: "",
+						description: "",
+						price: "",
 					});
 				}}
 			>

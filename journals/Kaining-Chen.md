@@ -1,6 +1,9 @@
 ## Jun 8, 2023
 Today, I worked on:
 * Back end and front end to apply to be a trainer and displaying all trainers
+* Trainer RTK
+* TrainerList component
+* TrainerForm component
 * Add more small features
 * Fixing small bugs
 
@@ -23,7 +26,7 @@ Today, I learned some styling with donut chats on react plotly. I found that sty
 
 Today, I worked on:
 
-* Two interactive react-plotly line plots for food intake and exercise calories on Dashboard - one of our MVP
+* Two interactive react-plotly line plots for food intake and exercise calories on Dashboard
 * CI/CD
 
 I wrote a GraphWeightCalories component to access the weights logs and meals logs, used react-plotly and plotly js to plot the weights and daily calories for food intake and exercises based on the last 7 days, including the current day. I also worked with Yosef, Sonny and Charles for CI/CD, we faced a wall on Gitlab pipelines, but we have the yml files basically ready.
@@ -34,8 +37,14 @@ Today, I found that react-plotly is very easy to use, the examples and codes in 
 
 Today, I worked on:
 
-* Logs component - one of our MVP
+* Logs component
 
 I worked on displaying the list of meal items and exercise items, calculate the food intake calories and exercise clories and added functionality to the exercise button and the delete buttons on the meal items and exercise items.
 
 Today, I learned MUI is really great for burron component, like small things component. They look nice and easy to implement. And I created this LogModal function to keep code dry, making showing the add meal/exercise/weight functionality so easy, very proud of it.
+
+## Jun 2, 2023
+
+Today, I worked on:
+
+* Mock up

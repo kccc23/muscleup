@@ -37,9 +37,7 @@ export const trainerApiSlice = createApi({
 			async onQueryStarted(arg, { queryFulfilled }) {
 				try {
 					await queryFulfilled;
-				} catch (err) {
-					console.error("you got an error", err);
-				}
+				} catch (err) {}
 			},
 		}),
     }),
