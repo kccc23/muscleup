@@ -1,7 +1,17 @@
+## Jun 8, 2023
+Today, I worked on:
+* Back end and front end to apply to be a trainer and displaying all trainers
+* Add more small features
+* Fixing small bugs
+
+I wrote full-stack for showing all trainers and apply to be a trainer. I also added some small features for weight graph and daily calorie goal, fixed the profile form error message bug. I also worked with the theam for deployment in the morning at Andrew' workshop,it's great to see our app finally get deployed. I tried it on Chrome and my phone, super excited.
+
+Today, I learned going over all the steps from back end to front end could be very flowy. I was able to create a showing all trainers as well as aplly to be a new trainer within a few hours, very proud of it. And I also learned to use MUI component for the form and card, which was fun to make some styles there.
+
 ## Jun 7, 2023
 
 Today, I worked on:
-* Two interactive react plotly donut graphs for daily macro, and sugar intake
+* Two interactive react-plotly donut graphs for daily macro, and sugar intake
 * Deployment
 * Trainers
 
@@ -19,3 +29,13 @@ Today, I worked on:
 I wrote a GraphWeightCalories component to access the weights logs and meals logs, used react-plotly and plotly js to plot the weights and daily calories for food intake and exercises based on the last 7 days, including the current day. I also worked with Yosef, Sonny and Charles for CI/CD, we faced a wall on Gitlab pipelines, but we have the yml files basically ready.
 
 Today, I found that react-plotly is very easy to use, the examples and codes in the documentation are easy to understand. The trick part is to count total calories based on dates with our nested object, I did it in some nested loops. The other trick part is to access the latest update of weight logs based on the date, I had to sort it by datetime in ascent order, then grab the "largest" value based on date.
+
+## Jun 5, 2023
+
+Today, I worked on:
+
+* Logs component - one of our MVP
+
+I worked on displaying the list of meal items and exercise items, calculate the food intake calories and exercise clories and added functionality to the exercise button and the delete buttons on the meal items and exercise items.
+
+Today, I learned MUI is really great for burron component, like small things component. They look nice and easy to implement. And I created this LogModal function to keep code dry, making showing the add meal/exercise/weight functionality so easy, very proud of it.
