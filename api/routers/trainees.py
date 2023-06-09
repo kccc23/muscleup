@@ -37,13 +37,6 @@ async def create_trainee_profile(
     ),
 ):
     if account_data:
-        # # check for duplicate profile
-        # check = repo.get(account_data["id"])
-        # if check:
-        #     return {
-        #         "message": "profile already exists, aborting  creation"
-        #     }
-        # create profile
         try:
             trainee = repo.create(info, account_data)
             return trainee

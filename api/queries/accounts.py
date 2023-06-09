@@ -63,3 +63,17 @@ class AccountQueries(Queries):
             return {"message": "account deleted successfully"}
         else:
             return {"message": "account deletion failed"}
+
+    def change_role(self, account_email: str, role: str) -> Account:
+        props = self.collection.find_one({"email": account_email})
+        props["id"] = str(props["_id"])
+        props["role"] = role
+        self.collection.update_one(
+            {"email": account_email},
+            {
+                "$set": {
+                    "role": props["role"],
+                }
+            }
+        )
+        return {"message": "Change role successfully"}

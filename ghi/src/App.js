@@ -6,6 +6,8 @@ import SignUp from "./components/signup/SignUp";
 import ProfileCreate from "./components/signup/ProfileCreate";
 import Dashboard from "./components/dashboard/DashboardPage";
 import ProfileDashboard from "./components/dashboard/ProfileShow";
+import TrainerList from "./components/trainer/TrainerList";
+import TrainerForm from "./components/trainer/TrainerForm";
 
 
 function App() {
@@ -22,6 +24,10 @@ function App() {
           <Route path="/profileform" element={<ProfileCreate />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<ProfileDashboard />} />
+          <Route path="/trainers">
+            <Route index element={<TrainerList />} />
+            <Route path="/trainers/new" element={<TrainerForm />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>
