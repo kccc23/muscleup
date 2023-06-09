@@ -1,13 +1,11 @@
 from .client import Queries
-from models import (
-    TrainerIn,
-    Trainer,
-    TraineeProfile
-)
+from models import TrainerIn, Trainer
 from bson.objectid import ObjectId
+
 
 class DuplicateTrainerError(ValueError):
     pass
+
 
 class NoTrainerError(ValueError):
     pass
@@ -67,10 +65,6 @@ class TrainerQueries(Queries):
 
         self.collection.update_one(
             {"account_id": account_id},
-            {
-                "$set": {
-                    "trainees": props["trainees"]
-                }
-            },
+            {"$set": {"trainees": props["trainees"]}},
         )
         return Trainer(**props)

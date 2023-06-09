@@ -16,9 +16,7 @@ from queries.trainers import (
     DuplicateTrainerError,
     NoTrainerError,
 )
-from queries.accounts import (
-    AccountQueries
-)
+from queries.accounts import AccountQueries
 
 
 router = APIRouter()
@@ -29,7 +27,7 @@ class HttpError(BaseModel):
 
 
 @router.post(
-    '/api/trainers',
+    "/api/trainers",
     response_model=Trainer | HttpError | dict,
 )
 async def create_trainer(
@@ -55,13 +53,13 @@ async def create_trainer(
                 detail="Trainer already exists with this account information.",
             )
     raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Trainer cannot be created if not logged in.",
-        )
+        status_code=status.HTTP_400_BAD_REQUEST,
+        detail="Trainer cannot be created if not logged in.",
+    )
 
 
 @router.get(
-    '/api/trainers/{trainer_id}',
+    "/api/trainers/{trainer_id}",
     response_model=Trainer | dict,
 )
 async def get_trainer(
@@ -75,7 +73,7 @@ async def get_trainer(
 
 
 @router.get(
-    '/api/trainers',
+    "/api/trainers",
     response_model=list[Trainer] | dict,
 )
 async def get_all(
@@ -83,6 +81,7 @@ async def get_all(
 ):
     trainers = repo.get_all()
     return trainers
+
 
 @router.delete("/api/trainers", response_model=dict)
 async def delete_trainer(
