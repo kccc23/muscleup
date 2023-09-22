@@ -18,7 +18,7 @@ import IconButton from "@mui/joy/IconButton";
 import WarningIcon from "@mui/icons-material/Warning";
 import CloseIcon from "@mui/icons-material/Close";
 
-function LogInModal({ toggleLogInModal }) {
+function LogInModal() {
 	const { email, password } = useSelector((state) => state.account);
 	const dispatch = useDispatch();
 	const [logIn] = useLogInMutation();
@@ -33,7 +33,6 @@ function LogInModal({ toggleLogInModal }) {
 
 		if (response.data) {
 			setError(false);
-			toggleLogInModal();
 			navigate("/dashboard");
 		} else {
 			setError(true);

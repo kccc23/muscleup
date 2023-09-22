@@ -1,197 +1,115 @@
-import "./Navbar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ImMenu } from "react-icons/im";
-import React, { useState, useEffect } from "react";
-import { useGetTokenQuery } from "../../redux-elements/authApi";
-import Avatar from "@mui/joy/Avatar";
-import { useLogOutMutation } from "../../redux-elements/authApi";
+import React, { useState } from "react";
+import {
+	useGetTokenQuery,
+	useLogOutMutation,
+} from "../../redux-elements/authApi";
 import { useDispatch } from "react-redux";
 import { authApiSlice } from "../../redux-elements/authApi";
 import LogInModal from "../Modal/LoginModal";
-import Menu from "@mui/joy/Menu";
-import MenuItem from "@mui/joy/MenuItem";
-
-
 
 function Navbar() {
-	const [sideBar, setSideBar] = useState(false);
 	const [logInModal, setLogInModal] = useState(false);
-	const toggleSideBar = () => setSideBar(!sideBar);
-	const toggleLogInModal = () => setLogInModal(!logInModal);
+	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 	const { data } = useGetTokenQuery();
 	const [logOut] = useLogOutMutation();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	// Stuff for the material UI dropdown menu
-	const [anchorEl, setAnchorEl] = useState(null);
-	const open = Boolean(anchorEl);
-	const handleDropDownClick = (event) => {
-		setAnchorEl(event.currentTarget);
-	};
-	const handleDropDownClose = () => {
-		setAnchorEl(null);
-	};
-
-	useEffect(() => {
-		// Hide Sidebar on Resize
-		const hideMenu = () => {
-			if (window.innerWidth <= 768) {
-				setSideBar(false);
-			}
-		};
-
-		window.addEventListener("resize", hideMenu);
-
-		return () => {
-			window.removeEventListener("resize", hideMenu);
-		};
-	}, []);
-
 	const handleLogOut = async (e) => {
 		e.preventDefault();
 		const response = await logOut();
-		toggleSideBar();
 		if (response.data) {
 			navigate("/");
 		}
 		dispatch(authApiSlice.util.resetApiState());
 	};
 
+	const handleClick = () => {
+		setLogInModal(true);
+	};
+
+	const handleOutsideClick = (e) => {
+		if (e.target.className.includes("fixed")) {
+			setLogInModal(false);
+		}
+	};
+
 	return (
-		<nav className="navbar">
-			<div className="navbar-content">
-			<div className="navbar-container-image">
-				<NavLink className="navbar-title" to="/">
-					MUSCLE UP
+		<nav className="bg-transparent p-8 shadow-md">
+		<div className="container mx-auto flex justify-between items-center flex-wrap">
+			<NavLink className="text-6xl font-bold text-white mb-4 md:mb-0" to="/">
+			MUSCLE UP
+			</NavLink>
+			<div className="md:hidden">
+			<ImMenu
+				onClick={toggleDropdown}
+				className="text-white cursor-pointer"
+			/>
+			</div>
+			<div
+			className={`mx-2 md:flex-row md:justify-between md:items-center md:flex md:flex-wrap ${
+				dropdownOpen ? "block items-center flex-col" : "hidden"
+			}`}
+			>
+				<NavLink className="text-2xl font-bold text-white mr-6 hover:scale-110 transition-transform duration-300" to="/trainers">
+					Trainers
 				</NavLink>
-			</div>
-
-			<div className="right-bar">
-				<div className="navbar-container-links">
-					<ul className="navbar-links">
-						{data ? (
-							<>
-								<li className="navbar-item">
-									<NavLink className="navbar-link" to="/trainers">
-										Trainers
-									</NavLink>
-								</li>
-							</>
-						) : (
-							<>
-								<li className="navbar-item">
-									<NavLink className="navbar-link" to="/trainers">
-										Trainers
-									</NavLink>
-								</li>
-								<li className="navbar-item">
-									<div className="navbar-link" onClick={toggleLogInModal}>
-										Login
-									</div>
-								</li>
-							</>
-						)}
-					</ul>
-				</div>
 				{data ? (
-					<>
-						<div className="navbar-profile" onClick={handleDropDownClick}>
-							<Avatar className="avatar" variant="solid" src={data.account.avatar} size="lg"/>
-						</div>
-						<Menu
-							id="basic-menu"
-							anchorEl={anchorEl}
-							open={open}
-							onClose={handleDropDownClose}
-							aria-labelledby="basic-demo-button"
+					<div className="flex items-center space-x-4">
+					<img
+						className="h-10 w-10 rounded-full mr-4"
+						src={data.account.avatar}
+						alt="User Avatar"
+					/>
+					<span className="text-white text-2xl fond-bold">
+						{data.account.username}
+					</span>
+					<div className="flex flex-col mt-2 md:flex-row">
+						<button
+							className="text-white text-2xl fond-bold hover:underline"
+							onClick={() => navigate("/dashboard")}
 						>
-							<MenuItem
-								onClick={() => {
-									handleDropDownClose();
-									navigate("/");
-								}}
-							>
-								Home
-							</MenuItem>
-							<MenuItem
-								onClick={() => {
-									handleDropDownClose();
-									navigate("/dashboard");
-								}}
-							>
-								Dashboard
-							</MenuItem>
-							<MenuItem onClick={handleLogOut}>Logout</MenuItem>
-						</Menu>
-					</>
-				) : (
-					<div className="navbar-button" onClick={() => navigate("/signup")}>
-						<div className="navbar-link-button">Muscle UP!</div>
+							Dashboard
+						</button>
+						<button
+							className="text-white text-2xl font-bold hover:underline"
+							onClick={handleLogOut}
+						>
+							Logout
+						</button>
 					</div>
+					</div>
+				) : (
+					<>
+						<button
+							className="text-white text-2xl font-bold mr-6 hover:scale-110 transition-transform duration-300"
+							onClick={handleClick}
+						>
+							Login
+						</button>
+						<NavLink
+							className="bg-white text-2xl font-bold py-2 px-4 rounded hover:scale-110 transition-transform duration-300 text-red-600"
+							to="/signup"
+						>
+							Muscle UP!
+						</NavLink>
+					</>
 				)}
-				<div className="navbar-hamburger-button">
-					<ImMenu className="navbar-hamburger-menu-icon" onClick={toggleSideBar}></ImMenu>
-				</div>
-
-				{/* Hamburger Menu */}
-				<div className="navSideMenu" style={sideBar ? { right: "0" } : { right: "-100%" }}>
-					<ul className="navSideMenuItems">
-						{data ? (
-							<>
-								<NavLink to="/" onClick={toggleSideBar} style={{ textDecoration: "None" }}>
-									<li className="navItemSide" style={{ marginTop: "4.5rem" }}>
-										Home
-									</li>
-								</NavLink>
-								<NavLink to="/dashboard" onClick={toggleSideBar} style={{ textDecoration: "None" }}>
-									<li className="navItemSide">Dashboard</li>
-								</NavLink>
-								<NavLink to="/" onClick={handleLogOut} style={{ textDecoration: "None" }}>
-									<li className="navItemSide">Logout</li>
-								</NavLink>
-							</>
-						) : (
-							<>
-								<NavLink to="/" onClick={toggleSideBar} style={{ textDecoration: "None" }}>
-									<li className="navItemSide" style={{ marginTop: "4.5rem" }}>
-										Home
-									</li>
-								</NavLink>
-								<NavLink to="/signup" onClick={toggleSideBar} style={{ textDecoration: "None" }}>
-									<li className="navItemSide">Signup</li>
-								</NavLink>
-								<div
-									onClick={() => {
-										toggleLogInModal();
-										toggleSideBar();
-									}}
-									style={{ textDecoration: "None" }}
-								>
-									<li className="navItemSide">Login</li>
-								</div>
-							</>
-						)}
-					</ul>
-				</div>
-				<div
-					className="dark-overlay"
-					onClick={toggleSideBar}
-					style={sideBar ? { opacity: "100%" } : { opacity: "0%", pointerEvents: "none" }}
-				/>
-				<div
-					className="login-modal"
-					style={logInModal ? { opacity: "100%", zIndex: "100" } : { opacity: "0%", pointerEvents: "none" }}
-				>
-					<LogInModal toggleLogInModal={toggleLogInModal} />
-				</div>
-				<div
-					className="dark-overlay-login"
-					onClick={toggleLogInModal}
-					style={logInModal ? { opacity: "100%" } : { opacity: "0%", pointerEvents: "none" }}
-				></div>
 			</div>
+		</div>
+		{logInModal && (
+			<div
+				className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center z-50"
+				onClick={handleOutsideClick}
+			>
+				<div className="loginModal">
+					<LogInModal/>
+				</div>
 			</div>
+		)}
 		</nav>
 	);
 }

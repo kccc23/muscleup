@@ -15,22 +15,22 @@ function App() {
   const basename = process.env.PUBLIC_URL.replace(domain, "");
 
   return (
-    <BrowserRouter basename={basename}>
-      <Navbar />
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/profileform" element={<ProfileCreate />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<ProfileDashboard />} />
-          <Route path="/trainers">
-            <Route index element={<TrainerList />} />
-            <Route path="/trainers/new" element={<TrainerForm />} />
-          </Route>
-        </Routes>
-      </div>
-    </BrowserRouter>
+      <BrowserRouter basename={basename}>
+        <Navbar />
+        <div>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/profileform" element={<ProfileCreate />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/profile" element={<ProfileDashboard />} />
+            <Route path="/trainers">
+              <Route index element={<TrainerList />} />
+              <Route path="/trainers/new" element={<TrainerForm />} />
+            </Route>
+          </Routes>
+        </div>
+      </BrowserRouter>
   );
 }
 
